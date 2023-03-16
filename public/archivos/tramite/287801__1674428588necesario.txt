@@ -1,0 +1,8 @@
+
+        @fono_domicilio $fono_domicilio
+        @fono_oficina $fono_oficina
+        @fono_cel $celular
+        @email $email
+        @estado 
+        @junta_via_ID 
+        @domicilio $direccion_completa
