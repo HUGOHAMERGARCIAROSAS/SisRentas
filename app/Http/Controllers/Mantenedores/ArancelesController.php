@@ -20,6 +20,11 @@ class ArancelesController extends Controller
         return response()->json($aranceles);
     }
 
+    public function listArancelesTotalJuntas(){
+        $todosjuntas =  DB::select('exec sp_ubicacion ?', array(10));
+        return response()->json($todosjuntas);
+    }
+
     public function list($id){
         $pag = $id;
         $hasta=10;
@@ -31,18 +36,19 @@ class ArancelesController extends Controller
     public function listSearch(Request $request){
         $anio = $request->anio;
         $descripcion = $request->descripcion;
-        $listEstado =  DB::select('exec sp_arancel ?,?,?,?,?,?,?,?,?,?,?,?', array(3,'','','',$anio,'','','','','',$descripcion));
+        $junta = $request->junta;
+        $listEstado =  DB::select('exec sp_arancel ?,?,?,?,?,?,?,?,?,?,?,?', array(17,'','','',$anio,null,'','','','',$junta,$descripcion));
         return response()->json($listEstado);
     }
 
     public function storeDataAranceles(Request $request){
 
         $user = Auth::user()->per_login;
-        $anio = $request->anio; 
+        $anio = $request->anio;
         $numero = $request->numero;
-        $importe = $request->importe; 
+        $importe = $request->importe;
         $cuadra = $request->cuadra;
-        $lado = $request->lado; 
+        $lado = $request->lado;
         $junta_via = $request->junta_via;
 
         try {
@@ -56,7 +62,32 @@ class ArancelesController extends Controller
             DB::rollBack();
             return response()->json(false);
         }
-        
+
+    }
+
+    public function updateDataAranceles(Request $request){
+
+        $user = Auth::user()->per_login;
+        $anio = $request->anio;
+        $numero = $request->numero;
+        $importe = $request->importe;
+        $cuadra = $request->cuadra;
+        $lado = $request->lado;
+        $junta_via = $request->junta_via;
+        $arancel_id = $request->arancel_id;
+
+        try {
+            DB::beginTransaction();
+            DB::statement('exec sp_arancel ?,?,?,?,?,?,?,?,?,?,?',
+            array(11,"","",$arancel_id,"",$importe,$numero,$junta_via,$cuadra,$lado,$user));
+            DB::commit();
+            return response()->json(true);
+        }
+        catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(false);
+        }
+
     }
 
     public function listAniosAranceles(){
@@ -65,11 +96,11 @@ class ArancelesController extends Controller
     }
 
 
-    public function deleteDataUbigeos(Request $request){
+    public function deleteDataAranceles(Request $request){
         try {
             $codigo = $request->codigo;
-            DB::statement('exec sp_ubicacion ?,?,?,?,?',
-            array(6,"","","",$codigo));
+            DB::statement('exec sp_arancel ?,?,?,?,?',
+            array(9,"","",$codigo,""));
             DB::commit();
             return response()->json(true);
         }
@@ -79,12 +110,17 @@ class ArancelesController extends Controller
         }
     }
 
-    public function activeDataUbigeos(Request $request){
+    public function editDataAranceles($id){
+        $aranceles =  DB::select('exec sp_arancel ?,?,?,?', array(8,"","",$id));
+        return response()->json($aranceles);
+    }
+
+    public function activeDataAranceles(Request $request){
         try {
             $codigo = $request->codigo;
 
-            DB::statement('exec sp_ubicacion ?,?,?,?,?',
-            array(7,"","","",$codigo));
+            DB::statement('exec sp_arancel ?,?,?,?,?',
+            array(18,"","",$codigo,""));
             DB::commit();
             return response()->json(true);
         }
@@ -109,7 +145,7 @@ class ArancelesController extends Controller
             return response()->json(false);
         }
     }
-    
+
     public function editDataUbigeos($id){
         $ubigeos =  DB::select('exec sp_ubicacion ?,?,?,?,?,?,?', array(9,"","","",$id,"",""));
         return response()->json($ubigeos);

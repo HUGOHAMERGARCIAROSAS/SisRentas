@@ -36,7 +36,7 @@ class UbigeoController extends Controller
     }
 
     public function storeDataUbigeos(Request $request){;
-        $codigo = $request->codigo; 
+        $codigo = $request->codigo;
         $descripcion = $request->descripcion;
 
         $result =  DB::select('exec sp_ubicacion ?,?,?,?,?', array(4,"","","",$codigo));
@@ -55,7 +55,7 @@ class UbigeoController extends Controller
         }else{
             return response()->json(false);
         }
-        
+
     }
 
 
@@ -103,7 +103,7 @@ class UbigeoController extends Controller
             return response()->json(false);
         }
     }
-    
+
     public function editDataUbigeos($id){
         $ubigeos =  DB::select('exec sp_ubicacion ?,?,?,?,?,?,?', array(9,"","","",$id,"",""));
         return response()->json($ubigeos);

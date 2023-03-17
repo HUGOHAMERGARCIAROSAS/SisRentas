@@ -29,7 +29,7 @@
                             <div class="col-sm-5">
                             </div>
                             <div class="mb-3 col-12 col-md-4" style="margin-top:2%">
-                                <button type="submit" 
+                                <button type="submit"
                                     class="btn btn-primary btn-pill"><i class="fa fa-save nav-icon" aria-hidden="true" ></i>
                                     Grabar
                                 </button>
@@ -45,7 +45,7 @@
             </div>
         </div>
     </div>
-    
+
 </template>
 
 
@@ -124,7 +124,7 @@
                 this.loading=true;
                 this.selectEditUbigeo=data;
                 this.getDataUbigeos(this.selectEditUbigeo);
-            }); 
+            });
         },
         validations () {
             return {

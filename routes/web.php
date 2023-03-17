@@ -46,11 +46,22 @@ Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/lista-mantenedores-aranceles-list/{id}', 'Mantenedores\ArancelesController@list')->name('mantenedores.aranceles.list');
     Route::post('/lista-mantenedores-aranceles-search', 'Mantenedores\ArancelesController@listSearch')->name('mantenedores.aranceles.search');
     Route::post('/store-data-aranceles', 'Mantenedores\ArancelesController@storeDataAranceles')->name('mantenedores.aranceles.store');
-    Route::post('/delete-ubigeo', 'Mantenedores\ArancelesController@deleteDataAranceles')->name('mantenedores.aranceles.delete');
-    Route::post('/active-ubigeo', 'Mantenedores\ArancelesController@activeDataAranceles')->name('mantenedores.aranceles.active');
+    Route::post('/delete-arancel', 'Mantenedores\ArancelesController@deleteDataAranceles')->name('mantenedores.aranceles.delete');
+    Route::post('/active-arancel', 'Mantenedores\ArancelesController@activeDataAranceles')->name('mantenedores.aranceles.active');
     Route::post('/update-data-aranceles', 'Mantenedores\ArancelesController@updateDataAranceles')->name('mantenedores.aranceles.update');
     Route::get('/datos-aranceles-edit/{id}', 'Mantenedores\ArancelesController@editDataAranceles')->name('mantenedores.aranceles.edit');
     Route::get('/lista-aniosaranceles-text', 'Mantenedores\ArancelesController@listAniosAranceles')->name('mantenedores.aranceles.listAnios');
+
+
+    //FECHAS DE VENCIMIENTO
+    Route::get('/mantenedores-fechas_vencimiento', 'Mantenedores\FechasVencimientoController@index')->name('mantenedores.fechas_vencimiento.index');
+
+
+
+
+    Route::get('/lista-mantenedores-aranceles-total-juntas', 'Mantenedores\ArancelesController@listArancelesTotalJuntas')->name('mantenedores.aranceles.total_juntas');
+
+
 
 
 

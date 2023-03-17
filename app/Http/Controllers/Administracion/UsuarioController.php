@@ -40,8 +40,8 @@ class UsuarioController extends Controller
     public function storeDataUsuario(Request $request){
         $codigo=Auth::user()->persona_id;
 
-        $login = $request->login; 
-        $persona_id = $request->persona_id;  
+        $login = $request->login;
+        $persona_id = $request->persona_id;
         $password =  bcrypt($request->password);
 
         try {
@@ -96,7 +96,7 @@ class UsuarioController extends Controller
     }
 
     public function updateDataUsuario(Request $request){
-        
+
         $login = $request->login;
         $persona_id = $request->persona_id;
 
@@ -138,7 +138,7 @@ class UsuarioController extends Controller
     }
 
     public function updateDataUsuarioPassword(Request $request){
-        
+
         $password = bcrypt($request->password);
         $persona_id = $request->persona_id;
 

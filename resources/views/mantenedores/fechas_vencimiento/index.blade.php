@@ -7,14 +7,14 @@
                 <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>Mantenedores</h2>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="icon-home"></i></a></li>
-                    <li class="breadcrumb-item active">Listado</li>
+                    <li class="breadcrumb-item active">Fechas de Vencimiento</li>
                 </ul>
             </div>
         </div>
     </div>
 
     <div id="app">
-        <mantenedores-ubigeo-inicio></mantenedores-ubigeo-inicio>
+        <mantenedores-fechas_vencimiento-inicio></mantenedores-fechas_vencimiento-inicio>
     </div>
 </div>
 @endsection

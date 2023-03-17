@@ -6534,6 +6534,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -6547,6 +6552,7 @@ __webpack_require__.r(__webpack_exports__);
         junta: ''
       },
       todosaniosaranceles: '',
+      todosjuntas: '',
       //VARIABLE DE LOADING
       loading: false,
       //VARIABLES DE PAGINACION
@@ -6558,29 +6564,38 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    getTotal: function getTotal() {
+    getTodasJuntas: function getTodasJuntas() {
       var _this = this;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(this.variableGlobal, "/lista-mantenedores-aranceles-total-pages")).then(function (_ref) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(this.variableGlobal, "/lista-mantenedores-aranceles-total-juntas")).then(function (_ref) {
         var data = _ref.data;
-        _this.total = parseInt(data[0].total);
-        _this.total_pages = Math.ceil(_this.total / 10);
-        if (_this.tipo_busqueda == 1) {
-          _this.getAranceles(_this.currentPage);
+        _this.todosjuntas = data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getTotal: function getTotal() {
+      var _this2 = this;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(this.variableGlobal, "/lista-mantenedores-aranceles-total-pages")).then(function (_ref2) {
+        var data = _ref2.data;
+        _this2.total = parseInt(data[0].total);
+        _this2.total_pages = Math.ceil(_this2.total / 10);
+        if (_this2.tipo_busqueda == 1) {
+          _this2.getAranceles(_this2.currentPage);
         }
-        if (_this.tipo_busqueda == 2) {
-          _this.searchArancel();
+        if (_this2.tipo_busqueda == 2) {
+          _this2.searchArancel();
         }
       })["catch"](function (error) {
         console.log(error);
       });
     },
     getAranceles: function getAranceles(i) {
-      var _this2 = this;
+      var _this3 = this;
       this.loading = true;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(this.variableGlobal, "/lista-mantenedores-aranceles-list/") + i).then(function (_ref2) {
-        var data = _ref2.data;
-        _this2.aranceles = data;
-        _this2.loading = false;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(this.variableGlobal, "/lista-mantenedores-aranceles-list/") + i).then(function (_ref3) {
+        var data = _ref3.data;
+        _this3.aranceles = data;
+        _this3.loading = false;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -6594,16 +6609,16 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     searchArancel: function searchArancel() {
-      var _this3 = this;
+      var _this4 = this;
       if (this.buscador.descripcion == '' && this.buscador.anio == '' && this.buscador.junta == '') {
         console.log('INGRESE SUS PARAMETROS');
       } else {
         this.tipo_busqueda = 2;
         this.loading = true;
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("".concat(this.variableGlobal, "/lista-mantenedores-aranceles-search/"), this.buscador).then(function (_ref3) {
-          var data = _ref3.data;
-          _this3.aranceles = data;
-          _this3.loading = false;
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("".concat(this.variableGlobal, "/lista-mantenedores-aranceles-search/"), this.buscador).then(function (_ref4) {
+          var data = _ref4.data;
+          _this4.aranceles = data;
+          _this4.loading = false;
         })["catch"](function (error) {
           console.log(error);
         });
@@ -6623,10 +6638,10 @@ __webpack_require__.r(__webpack_exports__);
       });
       $('#modalCrearArancel').modal('show');
     },
-    deleteDataUbigeos: function deleteDataUbigeos(id) {
-      var _this4 = this;
+    deleteDataAranceles: function deleteDataAranceles(id) {
+      var _this5 = this;
       this.$swal.fire({
-        title: '¿Estás seguro de anular este ubigeo?',
+        title: '¿Estás seguro de anular este arancel?',
         text: "¡Puedes volver a activarlo luego!",
         icon: 'warning',
         showCancelButton: true,
@@ -6635,49 +6650,18 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: 'Si, Borrar!'
       }).then(function (result) {
         if (result.isConfirmed) {
-          _this4.loading = true;
-          var formData = new FormData();
-          formData.append('codigo', id);
-          var request = {
-            url: "".concat(_this4.variableGlobal, "/delete-ubigeo"),
-            method: 'post',
-            data: formData
-          };
-          axios__WEBPACK_IMPORTED_MODULE_0___default()(request).then(function (_ref4) {
-            var data = _ref4.data;
-            if (data) {
-              _this4.$swal.fire('Anulado!', 'El grupo fue anulado con éxito.', 'success');
-            }
-          });
-          _this4.loading = false;
-          _this4.getTotal();
-        }
-      });
-    },
-    ActiveDataUbigeos: function ActiveDataUbigeos(id) {
-      var _this5 = this;
-      this.$swal.fire({
-        title: '¿Estás seguro de activar este ubigeo?',
-        text: "¡Activarás este ubigeo!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, Activar!'
-      }).then(function (result) {
-        if (result.isConfirmed) {
           _this5.loading = true;
           var formData = new FormData();
           formData.append('codigo', id);
           var request = {
-            url: "".concat(_this5.variableGlobal, "/active-ubigeo"),
+            url: "".concat(_this5.variableGlobal, "/delete-arancel"),
             method: 'post',
             data: formData
           };
           axios__WEBPACK_IMPORTED_MODULE_0___default()(request).then(function (_ref5) {
             var data = _ref5.data;
             if (data) {
-              _this5.$swal.fire('Activado!', 'El ubigeo fue activado con éxito.', 'success');
+              _this5.$swal.fire('Anulado!', 'El arancel fue anulado con éxito.', 'success');
             }
           });
           _this5.loading = false;
@@ -6685,33 +6669,65 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    editDataUbigeos: function editDataUbigeos(id) {
-      $('#modalProcesoEditUbigeos').modal({
+    ActiveDataAranceles: function ActiveDataAranceles(id) {
+      var _this6 = this;
+      this.$swal.fire({
+        title: '¿Estás seguro de activar este arancel?',
+        text: "¡Activarás este arancel!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Activar!'
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this6.loading = true;
+          var formData = new FormData();
+          formData.append('codigo', id);
+          var request = {
+            url: "".concat(_this6.variableGlobal, "/active-arancel"),
+            method: 'post',
+            data: formData
+          };
+          axios__WEBPACK_IMPORTED_MODULE_0___default()(request).then(function (_ref6) {
+            var data = _ref6.data;
+            if (data) {
+              _this6.$swal.fire('Activado!', 'El arancel fue activado con éxito.', 'success');
+            }
+          });
+          _this6.loading = false;
+          _this6.getTotal();
+        }
+      });
+    },
+    editDataAranceles: function editDataAranceles(id) {
+      $('#modalProcesoEditAranceles').modal({
         backdrop: 'static',
         keyboard: false
       });
-      $('#modalProcesoEditUbigeos').modal('show');
-      Bus.$emit("modalEditarUbigeos", id);
+      $('#modalProcesoEditAranceles').modal('show');
+      Bus.$emit("modalEditarAranceles", id);
     },
     getAniosArancel: function getAniosArancel() {
-      var _this6 = this;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(this.variableGlobal, "/lista-aniosaranceles-text")).then(function (_ref6) {
-        var data = _ref6.data;
-        _this6.todosaniosaranceles = data;
+      var _this7 = this;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(this.variableGlobal, "/lista-aniosaranceles-text")).then(function (_ref7) {
+        var data = _ref7.data;
+        _this7.todosaniosaranceles = data;
       })["catch"](function (error) {
         console.log(error);
       });
     }
   },
   created: function created() {
-    var _this7 = this;
+    var _this8 = this;
+    this.getTodasJuntas();
     this.getTotal();
     this.getAniosArancel();
-    Bus.$on("DetalleCreateAranceles", function (data) {
-      _this7.getTotal();
+    Bus.$on("DetalleUpdateAranceles", function (data) {
+      _this8.getTotal();
     });
     Bus.$on("ProcesoEditUbigeo", function (data) {
-      _this7.getTotal();
+      _this8.getTotal();
     });
   }
 });
@@ -6783,14 +6799,6 @@ __webpack_require__.r(__webpack_exports__);
               showConfirmButton: false,
               timer: 2500
             });
-          } else {
-            _this.$swal.fire({
-              icon: 'warning',
-              title: '¡Error!',
-              text: "Ya existe registro con este c\xF3digo.",
-              showConfirmButton: false,
-              timer: 2500
-            });
           }
         });
         this.loading = false;
@@ -6801,6 +6809,10 @@ __webpack_require__.r(__webpack_exports__);
       this.limpiarAranceles();
       $('#modalCrearArancel').modal('hide');
       Bus.$emit("DetalleCreateAranceles");
+    },
+    closeModalAgregarArancelesOut: function closeModalAgregarArancelesOut() {
+      this.limpiarAranceles();
+      $('#modalCrearArancel').modal('hide');
     },
     limpiarAranceles: function limpiarAranceles() {
       this.arancel.anio = '', this.arancel.numero = '';
@@ -6887,18 +6899,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      ubigeo: {
-        codigo: '',
-        descripcion: ''
+      todostipolado: [],
+      todostipojunta: [],
+      arancel: {
+        anio: '',
+        numero: '',
+        cuadra: '',
+        importe: '',
+        lado: '',
+        junta_via: '',
+        arancel_id: ''
       },
       loading: false,
       enviado: false,
       validado: '',
-      selectEditUbigeo: ''
+      selectEditArancel: ''
     };
   },
   methods: {
-    editarUbigeos: function editarUbigeos() {
+    editarAranceles: function editarAranceles() {
       var _this = this;
       this.loading = true;
       this.enviado = true;
@@ -6908,10 +6927,15 @@ __webpack_require__.r(__webpack_exports__);
         return;
       } else {
         var formData = new FormData();
-        formData.append('codigo', this.ubigeo.codigo);
-        formData.append('descripcion', this.ubigeo.descripcion);
+        formData.append('anio', this.arancel.anio);
+        formData.append('numero', this.arancel.numero);
+        formData.append('cuadra', this.arancel.cuadra);
+        formData.append('importe', this.arancel.importe);
+        formData.append('lado', this.arancel.lado);
+        formData.append('junta_via', this.arancel.junta_via);
+        formData.append('arancel_id', this.arancel.arancel_id);
         var request = {
-          url: "".concat(this.variableGlobal, "/update-data-ubigeos"),
+          url: "".concat(this.variableGlobal, "/update-data-aranceles"),
           method: 'post',
           data: formData
         };
@@ -6920,55 +6944,85 @@ __webpack_require__.r(__webpack_exports__);
           if (data) {
             _this.$swal.fire({
               icon: 'success',
-              title: 'GUARDADO!',
+              title: 'ACTUALIZADO!',
               text: "Se actualizó exitosamente",
-              showConfirmButton: false,
-              timer: 2500
-            });
-          } else {
-            _this.$swal.fire({
-              icon: 'warning',
-              title: '¡Error!',
-              text: "Ya existe este ubigeo.",
               showConfirmButton: false,
               timer: 2500
             });
           }
         });
         this.loading = false;
-        this.closeModalEditarUbigeos();
+        this.closeModalAgregarAranceles();
       }
     },
-    closeModalEditarUbigeos: function closeModalEditarUbigeos() {
-      $('#modalProcesoEditUbigeos').modal('hide');
-      Bus.$emit("ProcesoEditUbigeo");
+    closeModalAgregarAranceles: function closeModalAgregarAranceles() {
+      $('#modalProcesoEditAranceles').modal('hide');
+      Bus.$emit("DetalleUpdateAranceles");
     },
-    getDataUbigeos: function getDataUbigeos(id) {
+    closeModalEditarArancelesOut: function closeModalEditarArancelesOut() {
+      $('#modalProcesoEditAranceles').modal('hide');
+    },
+    getDataAranceles: function getDataAranceles(id) {
       var _this2 = this;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(this.variableGlobal, "/datos-ubigeos-edit/") + id).then(function (_ref2) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(this.variableGlobal, "/datos-aranceles-edit/") + id).then(function (_ref2) {
         var data = _ref2.data;
-        _this2.ubigeo = data[0];
+        _this2.arancel = data[0];
+        _this2.arancel.junta_via = data[0].jv_valor;
+        _this2.arancel.importe = data[0].arancel_monto;
+        _this2.arancel.arancel_id = _this2.selectEditArancel;
         _this2.loading = false;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getTipoLado: function getTipoLado() {
+      var _this3 = this;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(this.variableGlobal, "/lista-tipolado-text")).then(function (_ref3) {
+        var data = _ref3.data;
+        _this3.todostipolado = data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getTipoJunta: function getTipoJunta() {
+      var _this4 = this;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(this.variableGlobal, "/lista-tipojunta-text")).then(function (_ref4) {
+        var data = _ref4.data;
+        _this4.todostipojunta = data;
       })["catch"](function (error) {
         console.log(error);
       });
     }
   },
   created: function created() {
-    var _this3 = this;
-    Bus.$on("modalEditarUbigeos", function (data) {
-      _this3.loading = true;
-      _this3.selectEditUbigeo = data;
-      _this3.getDataUbigeos(_this3.selectEditUbigeo);
+    var _this5 = this;
+    this.getTipoLado();
+    this.getTipoJunta();
+    Bus.$on("modalEditarAranceles", function (data) {
+      _this5.loading = true;
+      _this5.selectEditArancel = data;
+      _this5.getDataAranceles(_this5.selectEditArancel);
     });
   },
   validations: function validations() {
     return {
-      ubigeo: {
-        codigo: {
+      arancel: {
+        anio: {
           required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
         },
-        descripcion: {
+        numero: {
+          required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
+        },
+        cuadra: {
+          required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
+        },
+        importe: {
+          required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
+        },
+        lado: {
+          required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
+        },
+        junta_via: {
           required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
         }
       }
@@ -6989,7 +7043,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-//
 //
 //
 //
@@ -56533,7 +56586,7 @@ var render = function () {
             _vm._v(" "),
             _c("div", { staticClass: "body" }, [
               _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-2" }, [
+                _c("div", { staticClass: "col-md-1" }, [
                   _c(
                     "select",
                     {
@@ -56571,7 +56624,7 @@ var render = function () {
                       _c(
                         "option",
                         { attrs: { value: "" }, domProps: { selected: true } },
-                        [_vm._v("Seleccionar:")]
+                        [_vm._v("Año:")]
                       ),
                       _vm._v(" "),
                       _vm._l(_vm.todosaniosaranceles, function (item, index) {
@@ -56579,6 +56632,59 @@ var render = function () {
                           "option",
                           { key: index, domProps: { value: item.anio } },
                           [_vm._v(_vm._s(item.anio))]
+                        )
+                      }),
+                    ],
+                    2
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.buscador.junta,
+                          expression: "buscador.junta",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: { id: "2" },
+                      on: {
+                        change: function ($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function (o) {
+                              return o.selected
+                            })
+                            .map(function (o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.buscador,
+                            "junta",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                      },
+                    },
+                    [
+                      _c(
+                        "option",
+                        { attrs: { value: "" }, domProps: { selected: true } },
+                        [_vm._v("Junta:")]
+                      ),
+                      _vm._v(" "),
+                      _vm._l(_vm.todosjuntas, function (item, index) {
+                        return _c(
+                          "option",
+                          { key: index, domProps: { value: item.valor } },
+                          [_vm._v(_vm._s(item.texto))]
                         )
                       }),
                     ],
@@ -56599,7 +56705,7 @@ var render = function () {
                     staticClass: "form-control",
                     attrs: {
                       type: "text",
-                      placeholder: "Ingrese la descripción",
+                      placeholder: "Ingrese la descripción (Junta - Vía)",
                     },
                     domProps: { value: _vm.buscador.descripcion },
                     on: {
@@ -56671,7 +56777,7 @@ var render = function () {
                     ]
                   ),
                   _vm._v(" "),
-                  _vm.$can("administracion.grupos.store")
+                  _vm.$can("mantenedores.aranceles.store")
                     ? _c(
                         "button",
                         {
@@ -56809,7 +56915,7 @@ var render = function () {
                                 ]),
                                 _vm._v(" "),
                                 _c("td", { staticClass: "text-center" }, [
-                                  _vm.$can("administracion.grupos.update")
+                                  _vm.$can("mantenedores.aranceles.update")
                                     ? _c(
                                         "button",
                                         {
@@ -56820,7 +56926,7 @@ var render = function () {
                                           },
                                           on: {
                                             click: function ($event) {
-                                              return _vm.editDataUbigeos(
+                                              return _vm.editDataAranceles(
                                                 item.arancel_ID
                                               )
                                             },
@@ -56830,7 +56936,7 @@ var render = function () {
                                       )
                                     : _vm._e(),
                                   _vm._v(" "),
-                                  _vm.$can("administracion.grupos.delete")
+                                  _vm.$can("mantenedores.aranceles.delete")
                                     ? _c("span", [
                                         item.activo == 1
                                           ? _c(
@@ -56841,11 +56947,11 @@ var render = function () {
                                                 attrs: {
                                                   type: "button",
                                                   "data-type": "confirm",
-                                                  title: "Borrar Ubigeo",
+                                                  title: "Borrar Arancel",
                                                 },
                                                 on: {
                                                   click: function ($event) {
-                                                    return _vm.deleteDataUbigeos(
+                                                    return _vm.deleteDataAranceles(
                                                       item.arancel_ID
                                                     )
                                                   },
@@ -56861,7 +56967,7 @@ var render = function () {
                                       ])
                                     : _vm._e(),
                                   _vm._v(" "),
-                                  _vm.$can("administracion.grupos.active")
+                                  _vm.$can("mantenedores.aranceles.active")
                                     ? _c("span", [
                                         item.activo == 0
                                           ? _c(
@@ -56872,11 +56978,11 @@ var render = function () {
                                                 attrs: {
                                                   type: "button",
                                                   "data-type": "confirm",
-                                                  title: "ACtivar Ubigeo",
+                                                  title: "Activar Arancel",
                                                 },
                                                 on: {
                                                   click: function ($event) {
-                                                    return _vm.ActiveDataUbigeos(
+                                                    return _vm.ActiveDataAranceles(
                                                       item.arancel_ID
                                                     )
                                                   },
@@ -57404,7 +57510,7 @@ var render = function () {
                           attrs: { type: "button" },
                           on: {
                             click: function ($event) {
-                              return _vm.closeModalAgregarAranceles()
+                              return _vm.closeModalAgregarArancelesOut()
                             },
                           },
                         },
@@ -57483,7 +57589,7 @@ var render = function () {
     {
       staticClass: "modal fade xd2",
       attrs: {
-        id: "modalProcesoEditUbigeos",
+        id: "modalProcesoEditAranceles",
         tabindex: "-1",
         role: "dialog",
         "data-keyboard": "false",
@@ -57504,7 +57610,7 @@ var render = function () {
                 on: {
                   submit: function ($event) {
                     $event.preventDefault()
-                    return _vm.editarUbigeos.apply(null, arguments)
+                    return _vm.editarAranceles.apply(null, arguments)
                   },
                 },
               },
@@ -57514,7 +57620,7 @@ var render = function () {
                     _c(
                       "label",
                       { staticClass: "form-label", attrs: { for: "lname" } },
-                      [_vm._v("Código:")]
+                      [_vm._v("Año:")]
                     ),
                     _vm._v(" "),
                     _c("input", {
@@ -57522,37 +57628,67 @@ var render = function () {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.ubigeo.codigo,
-                          expression: "ubigeo.codigo",
+                          value: _vm.arancel.anio,
+                          expression: "arancel.anio",
                         },
                       ],
                       staticClass: "form-control",
                       attrs: { type: "text", readonly: "" },
-                      domProps: { value: _vm.ubigeo.codigo },
+                      domProps: { value: _vm.arancel.anio },
                       on: {
                         input: function ($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.ubigeo, "codigo", $event.target.value)
+                          _vm.$set(_vm.arancel, "anio", $event.target.value)
+                        },
+                      },
+                    }),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "mb-3 col-12 col-md-3" }, [
+                    _c(
+                      "label",
+                      { staticClass: "form-label", attrs: { for: "lname" } },
+                      [_vm._v("Número:")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.arancel.numero,
+                          expression: "arancel.numero",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.arancel.numero },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.arancel, "numero", $event.target.value)
                         },
                       },
                     }),
                     _vm._v(" "),
-                    _vm.enviado && !_vm.$v.ubigeo.codigo.required
+                    _vm.enviado && !_vm.$v.arancel.numero.required
                       ? _c("div", { staticClass: "mensajeError" }, [
                           _vm._v(
-                            "\n                                Debe rellenar el ubigeo\n                            "
+                            "\n                                Debe rellenar el número\n                            "
                           ),
                         ])
                       : _vm._e(),
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "mb-3 col-12 col-md-9" }, [
+                  _c("div", { staticClass: "mb-3 col-12 col-md-3" }, [
                     _c(
                       "label",
                       { staticClass: "form-label", attrs: { for: "lname" } },
-                      [_vm._v("Descripción:")]
+                      [_vm._v("Cuadra:")]
                     ),
                     _vm._v(" "),
                     _c("input", {
@@ -57560,31 +57696,207 @@ var render = function () {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.ubigeo.descripcion,
-                          expression: "ubigeo.descripcion",
+                          value: _vm.arancel.cuadra,
+                          expression: "arancel.cuadra",
                         },
                       ],
                       staticClass: "form-control",
                       attrs: { type: "text" },
-                      domProps: { value: _vm.ubigeo.descripcion },
+                      domProps: { value: _vm.arancel.cuadra },
                       on: {
                         input: function ($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(
-                            _vm.ubigeo,
-                            "descripcion",
-                            $event.target.value
-                          )
+                          _vm.$set(_vm.arancel, "cuadra", $event.target.value)
                         },
                       },
                     }),
                     _vm._v(" "),
-                    _vm.enviado && !_vm.$v.ubigeo.descripcion.required
+                    _vm.enviado && !_vm.$v.arancel.cuadra.required
                       ? _c("div", { staticClass: "mensajeError" }, [
                           _vm._v(
-                            "\n                                Debe rellenar la descripción\n                            "
+                            "\n                                Debe rellenar la cuadra\n                            "
+                          ),
+                        ])
+                      : _vm._e(),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "mb-3 col-12 col-md-3" }, [
+                    _c(
+                      "label",
+                      { staticClass: "form-label", attrs: { for: "lname" } },
+                      [_vm._v("Importe:")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.arancel.importe,
+                          expression: "arancel.importe",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.arancel.importe },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.arancel, "importe", $event.target.value)
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _vm.enviado && !_vm.$v.arancel.importe.required
+                      ? _c("div", { staticClass: "mensajeError" }, [
+                          _vm._v(
+                            "\n                                Debe rellenar el importe\n                            "
+                          ),
+                        ])
+                      : _vm._e(),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "mb-3 col-12 col-md-4" }, [
+                    _c(
+                      "label",
+                      { staticClass: "form-label", attrs: { for: "lname" } },
+                      [_vm._v("Lado:")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.arancel.lado,
+                            expression: "arancel.lado",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        attrs: { id: "2" },
+                        on: {
+                          change: function ($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function (o) {
+                                return o.selected
+                              })
+                              .map(function (o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.arancel,
+                              "lado",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          },
+                        },
+                      },
+                      [
+                        _c(
+                          "option",
+                          {
+                            attrs: { value: "" },
+                            domProps: { selected: true },
+                          },
+                          [_vm._v("Seleccionar:")]
+                        ),
+                        _vm._v(" "),
+                        _vm._l(_vm.todostipolado, function (item, index) {
+                          return _c(
+                            "option",
+                            { key: index, domProps: { value: item.valor } },
+                            [_vm._v(_vm._s(item.descripcion))]
+                          )
+                        }),
+                      ],
+                      2
+                    ),
+                    _vm._v(" "),
+                    _vm.enviado && !_vm.$v.arancel.lado.required
+                      ? _c("div", { staticClass: "mensajeError" }, [
+                          _vm._v(
+                            "\n                                Debe seleccionar el lado.\n                            "
+                          ),
+                        ])
+                      : _vm._e(),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "mb-3 col-12 col-md-8" }, [
+                    _c(
+                      "label",
+                      { staticClass: "form-label", attrs: { for: "lname" } },
+                      [_vm._v("Vía - Junta:")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.arancel.junta_via,
+                            expression: "arancel.junta_via",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        attrs: { id: "2" },
+                        on: {
+                          change: function ($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function (o) {
+                                return o.selected
+                              })
+                              .map(function (o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.arancel,
+                              "junta_via",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          },
+                        },
+                      },
+                      [
+                        _c(
+                          "option",
+                          {
+                            attrs: { value: "" },
+                            domProps: { selected: true },
+                          },
+                          [_vm._v("Seleccionar:")]
+                        ),
+                        _vm._v(" "),
+                        _vm._l(_vm.todostipojunta, function (item, index) {
+                          return _c(
+                            "option",
+                            { key: index, domProps: { value: item.jv_valor } },
+                            [_vm._v(_vm._s(item.jv_descripcion))]
+                          )
+                        }),
+                      ],
+                      2
+                    ),
+                    _vm._v(" "),
+                    _vm.enviado && !_vm.$v.arancel.junta_via.required
+                      ? _c("div", { staticClass: "mensajeError" }, [
+                          _vm._v(
+                            "\n                                Debe seleccionar la Vía - Junta\n                            "
                           ),
                         ])
                       : _vm._e(),
@@ -57610,7 +57922,7 @@ var render = function () {
                           attrs: { type: "button" },
                           on: {
                             click: function ($event) {
-                              return _vm.closeModalEditarUbigeos()
+                              return _vm.closeModalEditarArancelesOut()
                             },
                           },
                         },
@@ -57640,7 +57952,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
       _c("h5", { staticClass: "modal-title w-100 text-center" }, [
-        _vm._v("EDITAR UBIGEOS"),
+        _vm._v("EDITAR ARANCEL"),
       ]),
     ])
   },
@@ -57783,7 +58095,7 @@ var render = function () {
                     ]
                   ),
                   _vm._v(" "),
-                  _vm.$can("administracion.grupos.store")
+                  _vm.$can("mantenedores.ubigeos.store")
                     ? _c(
                         "button",
                         {
@@ -57867,7 +58179,7 @@ var render = function () {
                                 ]),
                                 _vm._v(" "),
                                 _c("td", { staticClass: "text-center" }, [
-                                  _vm.$can("administracion.grupos.update")
+                                  _vm.$can("mantenedores.ubigeos.update")
                                     ? _c(
                                         "button",
                                         {
@@ -57888,7 +58200,7 @@ var render = function () {
                                       )
                                     : _vm._e(),
                                   _vm._v(" "),
-                                  _vm.$can("administracion.grupos.delete")
+                                  _vm.$can("mantenedores.ubigeos.delete")
                                     ? _c("span", [
                                         item.estado == 1
                                           ? _c(
@@ -57919,7 +58231,7 @@ var render = function () {
                                       ])
                                     : _vm._e(),
                                   _vm._v(" "),
-                                  _vm.$can("administracion.grupos.active")
+                                  _vm.$can("mantenedores.ubigeos.active")
                                     ? _c("span", [
                                         item.estado == 0
                                           ? _c(
@@ -77584,6 +77896,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('modal-editar-mantenedores-
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('mantenedores-arancel-inicio', __webpack_require__(/*! ./components/mantenedores/aranceles/HomeComponent.vue */ "./resources/js/components/mantenedores/aranceles/HomeComponent.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('modal-crear-mantenedores-arancel', __webpack_require__(/*! ./components/mantenedores/aranceles/ModalCreateArancelesComponent.vue */ "./resources/js/components/mantenedores/aranceles/ModalCreateArancelesComponent.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('modal-editar-mantenedores-arancel', __webpack_require__(/*! ./components/mantenedores/aranceles/ModalEditArancelesComponent.vue */ "./resources/js/components/mantenedores/aranceles/ModalEditArancelesComponent.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('mantenedores-fechas_vencimiento-inicio', __webpack_require__(/*! ./components/mantenedores/ubigeo/HomeComponent.vue */ "./resources/js/components/mantenedores/ubigeo/HomeComponent.vue")["default"]);
 
 // TRAMITE DOCUMENTARIO
 // Vue.component('tramite-documentario-expedientes-inicio', require('./components/tramite_documentario/expedientes/HomeComponent.vue').default);

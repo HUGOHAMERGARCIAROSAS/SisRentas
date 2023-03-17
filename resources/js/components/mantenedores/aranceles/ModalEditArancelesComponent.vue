@@ -1,27 +1,60 @@
 <template>
-    <div class="modal fade xd2" id="modalProcesoEditUbigeos"  tabindex="-1" role="dialog"
+    <div class="modal fade xd2" id="modalProcesoEditAranceles"  tabindex="-1" role="dialog"
           data-keyboard="false" data-backdrop="static">
           <page-loader v-if="loading==true"/>
         <div class="modal-dialog " role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title w-100 text-center">EDITAR UBIGEOS</h5>
+                    <h5 class="modal-title w-100 text-center">EDITAR ARANCEL</h5>
                 </div>
                 <div class="modal-body">
-                    <form  @submit.prevent="editarUbigeos">
+                    <form  @submit.prevent="editarAranceles">
                         <div class="row">
                             <div class="mb-3 col-12 col-md-3">
-                                <label class="form-label" for="lname">Código:</label>
-                                <input type="text"  class="form-control" v-model="ubigeo.codigo" readonly>
-                                <div v-if="enviado && (!$v.ubigeo.codigo.required)" class="mensajeError">
-                                    Debe rellenar el ubigeo
+                                <label class="form-label" for="lname">Año:</label>
+                                <input type="text"  class="form-control" v-model="arancel.anio" readonly>
+                            </div>
+                            <div class="mb-3 col-12 col-md-3">
+                                <label class="form-label" for="lname">Número:</label>
+                                <input type="text"  class="form-control" v-model="arancel.numero" >
+                                <div v-if="enviado && (!$v.arancel.numero.required)" class="mensajeError">
+                                    Debe rellenar el número
                                 </div>
                             </div>
-                            <div class="mb-3 col-12 col-md-9">
-                                <label class="form-label" for="lname">Descripción:</label>
-                                <input type="text"  class="form-control" v-model="ubigeo.descripcion" >
-                                <div v-if="enviado && (!$v.ubigeo.descripcion.required)" class="mensajeError">
-                                    Debe rellenar la descripción
+                            <div class="mb-3 col-12 col-md-3">
+                                <label class="form-label" for="lname">Cuadra:</label>
+                                <input type="text"  class="form-control" v-model="arancel.cuadra" >
+                                <div v-if="enviado && (!$v.arancel.cuadra.required)" class="mensajeError">
+                                    Debe rellenar la cuadra
+                                </div>
+                            </div>
+                            <div class="mb-3 col-12 col-md-3">
+                                <label class="form-label" for="lname">Importe:</label>
+                                <input type="text"  class="form-control" v-model="arancel.importe" >
+                                <div v-if="enviado && (!$v.arancel.importe.required)" class="mensajeError">
+                                    Debe rellenar el importe
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-12 col-md-4">
+                                <label class="form-label" for="lname">Lado:</label>
+                                <select id="2" class="form-control" v-model="arancel.lado" >
+                                    <option value="" :selected="true">Seleccionar:</option>
+                                    <option v-for="(item, index) in todostipolado" :key="index" :value="item.valor">{{ item.descripcion }}</option>
+                                </select>
+                                 <div v-if="enviado && !$v.arancel.lado.required" class="mensajeError">
+                                    Debe seleccionar el lado.
+                                </div>
+                            </div>
+                            <div class="mb-3 col-12 col-md-8">
+                                <label class="form-label" for="lname">Vía - Junta:</label>
+                                <select id="2" class="form-control" v-model="arancel.junta_via" >
+                                    <option value="" :selected="true">Seleccionar:</option>
+                                    <option v-for="(item, index) in todostipojunta" :key="index" :value="item.jv_valor">{{ item.jv_descripcion }}</option>
+                                </select>
+                                <div v-if="enviado && (!$v.arancel.junta_via.required)" class="mensajeError">
+                                    Debe seleccionar la Vía - Junta
                                 </div>
                             </div>
                         </div>
@@ -29,12 +62,12 @@
                             <div class="col-sm-5">
                             </div>
                             <div class="mb-3 col-12 col-md-4" style="margin-top:2%">
-                                <button type="submit" 
+                                <button type="submit"
                                     class="btn btn-primary btn-pill"><i class="fa fa-save nav-icon" aria-hidden="true" ></i>
                                     Grabar
                                 </button>
                                 <button type="button"
-                                    class="btn btn-danger btn-pill"  @click="closeModalEditarUbigeos()"
+                                    class="btn btn-danger btn-pill"  @click="closeModalEditarArancelesOut()"
                                     ><i class="icon-close"></i>
                                     Cerrar
                                 </button>
@@ -45,7 +78,7 @@
             </div>
         </div>
     </div>
-    
+
 </template>
 
 
@@ -56,18 +89,28 @@
     export default {
         data(){
             return{
-                ubigeo:{
-                    codigo:'',
-                    descripcion:''
+
+                todostipolado:[],
+                todostipojunta:[],
+
+                arancel:{
+                    anio:'',
+                    numero:'',
+                    cuadra:'',
+                    importe:'',
+                    lado:'',
+                    junta_via:'',
+                    arancel_id:''
                 },
+
                 loading:false,
                 enviado:false,
                 validado:'',
-                selectEditUbigeo:''
+                selectEditArancel:''
             }
         },
         methods:{
-            editarUbigeos(){
+            editarAranceles(){
                 this.loading=true;
                 this.enviado=true;
                 this.$v.$touch();
@@ -76,67 +119,90 @@
                     return;
                 }else{
                     let formData = new FormData()
-                    formData.append('codigo',this.ubigeo.codigo)
-                    formData.append('descripcion',this.ubigeo.descripcion)
+                    formData.append('anio',this.arancel.anio)
+                    formData.append('numero',this.arancel.numero)
+                    formData.append('cuadra',this.arancel.cuadra)
+                    formData.append('importe',this.arancel.importe)
+                    formData.append('lado',this.arancel.lado)
+                    formData.append('junta_via',this.arancel.junta_via)
+                    formData.append('arancel_id',this.arancel.arancel_id)
                     var request ={
-                        url:`${this.variableGlobal}/update-data-ubigeos`,
+                        url:`${this.variableGlobal}/update-data-aranceles`,
                         method:'post',
                         data:formData
                     }
                     axios(request).then(({data}) => {
-                    if (data) {
-                            this.$swal.fire({
-                                icon: 'success',
-                                title: 'GUARDADO!',
-                                text: "Se actualizó exitosamente",
-                                showConfirmButton: false,
-                                timer: 2500
-                        })
-                    }else{
-                    this.$swal.fire({
-                        icon: 'warning',
-                        title: '¡Error!',
-                        text: `Ya existe este ubigeo.`,
-                        showConfirmButton: false,
-                        timer: 2500
-                    })
-                    }
+                        if (data) {
+                                this.$swal.fire({
+                                    icon: 'success',
+                                    title: 'ACTUALIZADO!',
+                                    text: "Se actualizó exitosamente",
+                                    showConfirmButton: false,
+                                    timer: 2500
+                                })
+                        }
                     });
                     this.loading=false;
-                    this.closeModalEditarUbigeos();
+                    this.closeModalAgregarAranceles();
                 }
             },
-            closeModalEditarUbigeos(){
-                $('#modalProcesoEditUbigeos').modal('hide');
-                Bus.$emit("ProcesoEditUbigeo");
+            closeModalAgregarAranceles(){
+                $('#modalProcesoEditAranceles').modal('hide');
+                Bus.$emit("DetalleUpdateAranceles");
             },
-            getDataUbigeos(id){
-                axios.get(`${this.variableGlobal}/datos-ubigeos-edit/`+id).then(({data}) => {
-                    this.ubigeo = data[0];
+            closeModalEditarArancelesOut(){
+                $('#modalProcesoEditAranceles').modal('hide');
+            },
+
+            getDataAranceles(id){
+                axios.get(`${this.variableGlobal}/datos-aranceles-edit/`+id).then(({data}) => {
+                    this.arancel = data[0];
+                    this.arancel.junta_via=data[0].jv_valor;
+                    this.arancel.importe=data[0].arancel_monto;
+                    this.arancel.arancel_id=this.selectEditArancel;
                     this.loading=false;
+                }).catch((error) => {
+                    console.log(error);
+                });
+            },
+
+            getTipoLado(){
+                axios.get(`${this.variableGlobal}/lista-tipolado-text`).then(({data}) => {
+                    this.todostipolado = data;
+                }).catch((error) => {
+                    console.log(error);
+                });
+            },
+            getTipoJunta(){
+                axios.get(`${this.variableGlobal}/lista-tipojunta-text`).then(({data}) => {
+                    this.todostipojunta = data;
                 }).catch((error) => {
                     console.log(error);
                 });
             }
         },
         created() {
-            Bus.$on("modalEditarUbigeos", (data) => {
+            this.getTipoLado();
+            this.getTipoJunta();
+            Bus.$on("modalEditarAranceles", (data) => {
                 this.loading=true;
-                this.selectEditUbigeo=data;
-                this.getDataUbigeos(this.selectEditUbigeo);
-            }); 
+                this.selectEditArancel=data;
+                this.getDataAranceles(this.selectEditArancel);
+            });
         },
         validations () {
             return {
-                ubigeo:{
-                    codigo:{ required },
-                    descripcion:{required}
+                arancel:{
+                    anio:{ required },
+                    numero:{required},
+                    cuadra:{ required },
+                    importe:{required},
+                    lado:{ required },
+                    junta_via:{required},
                 }
             }
         }
     }
 </script>
-
-
 
 

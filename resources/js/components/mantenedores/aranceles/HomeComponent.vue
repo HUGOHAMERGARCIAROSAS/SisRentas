@@ -1,6 +1,6 @@
 <template>
     <div>
-         <page-loader v-if="loading==true"/> 
+         <page-loader v-if="loading==true"/>
          <div class="row clearfix">
                 <div class="col-lg-12">
                     <div class="card">
@@ -9,19 +9,25 @@
                         </div>
                         <div class="body">
                             <div class="row">
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <select id="2" class="form-control" v-model="buscador.anio" >
-                                        <option value="" :selected="true">Seleccionar:</option>
+                                        <option value="" :selected="true">Año:</option>
                                         <option v-for="(item, index) in todosaniosaranceles" :key="index" :value="item.anio">{{ item.anio }}</option>
                                     </select>
                                 </div>
+                                <div class="col-md-3">
+                                    <select id="2" class="form-control" v-model="buscador.junta" >
+                                        <option value="" :selected="true">Junta:</option>
+                                        <option v-for="(item, index) in todosjuntas" :key="index" :value="item.valor">{{ item.texto }}</option>
+                                    </select>
+                                </div>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" placeholder="Ingrese la descripción" v-model="buscador.descripcion" @keyup.enter="searchArancel()">
+                                    <input type="text" class="form-control" placeholder="Ingrese la descripción (Junta - Vía)" v-model="buscador.descripcion" @keyup.enter="searchArancel()">
                                 </div>
                                 <div class="col-md-4">
                                     <button type="button" @click="searchArancel()" class="btn mb-1 btn-simple btn-sm btn-secondary btn-filter" data-target="all"><i class="fa fa-search">  Buscar</i></button>
                                     <button type="button" @click="limpiar()" class="btn mb-1 btn-simple btn-sm btn-default btn-filter" data-target="approved"><i class="icon-refresh">  Limpiar</i></button>
-                                    <button  type="button" v-if="$can('administracion.grupos.store')" @click="AbriModalCrearArancel()" class="btn mb-1 btn-simple btn-sm btn-success btn-filter" data-target="blocked"><i class="fa fa-plus-square-o">  Nuevo</i></button>
+                                    <button  type="button" v-if="$can('mantenedores.aranceles.store')" @click="AbriModalCrearArancel()" class="btn mb-1 btn-simple btn-sm btn-success btn-filter" data-target="blocked"><i class="fa fa-plus-square-o">  Nuevo</i></button>
                                 </div>
                             </div>
                         </div>
@@ -29,7 +35,7 @@
                             <div class="table-responsive" v-if="aranceles.length==0">
                                 <table class="table table-hover m-b-0 c_list">
                                     <thead>
-                                        <tr>        
+                                        <tr>
                                             <th class="text-center">#</th>
                                             <th class="text-center">Código</th>
                                             <th class="text-center">Año</th>
@@ -51,7 +57,7 @@
                             <div class="table-responsive" v-else>
                                 <table class="table table-hover m-b-0 c_list">
                                     <thead>
-                                        <tr>                                 
+                                        <tr>
                                             <th class="text-center">#</th>
                                             <th class="text-center">Código</th>
                                             <th class="text-center">Año</th>
@@ -91,20 +97,19 @@
                                                 <td class="text-center">
                                                     <span class="phone"><i class="zmdi zmdi-phone m-r-10"></i>{{item.lado}}</span>
                                                 </td>
-                                                
+
                                                 <td class="text-center">
                                                     <span class="phone"><i class="zmdi zmdi-phone m-r-10"></i>{{item.arancel_monto}}</span>
                                                 </td>
-                                                
+
                                                 <td class="text-center" >
                                                     <span class="badge badge-success" v-if="item.activo==1">Activo</span>
                                                     <span class="badge badge-danger" v-if="item.activo==0">Anulado</span>
-                                                </td>  
-                                                <td class="text-center">  
-                                                    <button v-if="$can('administracion.grupos.update')" type="button"  class="btn btn-info" @click="editDataUbigeos(item.arancel_ID)" title="Editar Ubigeo"><i class="fa fa-edit"></i></button>
-                                                    <span  v-if="$can('administracion.grupos.delete')"><button v-if="item.activo==1" type="button" @click="deleteDataUbigeos(item.arancel_ID)" data-type="confirm" class="btn btn-danger js-sweetalert" title="Borrar Ubigeo"><i class="fa fa-trash-o"></i></button></span>
-                                                    <span  v-if="$can('administracion.grupos.active')"><button v-if="item.activo==0" type="button" @click="ActiveDataUbigeos(item.arancel_ID)" data-type="confirm" class="btn btn-success js-sweetalert" title="ACtivar Ubigeo"><i class="fa fa-check"></i></button></span>
-
+                                                </td>
+                                                <td class="text-center">
+                                                    <button v-if="$can('mantenedores.aranceles.update')" type="button"  class="btn btn-info" @click="editDataAranceles(item.arancel_ID)" title="Editar Ubigeo"><i class="fa fa-edit"></i></button>
+                                                    <span  v-if="$can('mantenedores.aranceles.delete')"><button v-if="item.activo==1" type="button" @click="deleteDataAranceles(item.arancel_ID)" data-type="confirm" class="btn btn-danger js-sweetalert" title="Borrar Arancel"><i class="fa fa-trash-o"></i></button></span>
+                                                    <span  v-if="$can('mantenedores.aranceles.active')"><button v-if="item.activo==0" type="button" @click="ActiveDataAranceles(item.arancel_ID)" data-type="confirm" class="btn btn-success js-sweetalert" title="Activar Arancel"><i class="fa fa-check"></i></button></span>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -127,7 +132,7 @@
         <!-- MODAL PARA EDITAR grupos     -->
          <modal-editar-mantenedores-arancel></modal-editar-mantenedores-arancel>
 
-         
+
     </div>
 </template>
 <script>
@@ -141,10 +146,11 @@
             buscador:{
                 anio:'',
                 descripcion:'',
-                junta:''
+                junta:'',
             },
 
             todosaniosaranceles:'',
+            todosjuntas:'',
 
             //VARIABLE DE LOADING
             loading:false,
@@ -158,6 +164,13 @@
         }
     },
     methods:{
+        getTodasJuntas(){
+            axios.get(`${this.variableGlobal}/lista-mantenedores-aranceles-total-juntas`).then(({data}) => {
+                this.todosjuntas = data;
+            }).catch((error) => {
+                console.log(error);
+            });
+        },
         getTotal(){
             axios.get(`${this.variableGlobal}/lista-mantenedores-aranceles-total-pages`).then(({data}) => {
                 this.total = parseInt(data[0].total);
@@ -215,9 +228,9 @@
             $('#modalCrearArancel').modal({backdrop: 'static', keyboard: false});
             $('#modalCrearArancel').modal('show');
         },
-        deleteDataUbigeos(id){
+        deleteDataAranceles(id){
             this.$swal.fire({
-            title: '¿Estás seguro de anular este ubigeo?',
+            title: '¿Estás seguro de anular este arancel?',
             text: "¡Puedes volver a activarlo luego!",
             icon: 'warning',
             showCancelButton: true,
@@ -225,35 +238,34 @@
             cancelButtonColor: '#d33',
             confirmButtonText: 'Si, Borrar!'
             }).then((result) => {
-            if (result.isConfirmed) {
-                this.loading=true;
-                let formData = new FormData()
-                formData.append('codigo',id)
-                var request ={
-                    url:`${this.variableGlobal}/delete-ubigeo`,
-                    method:'post',
-                    data:formData
+                if (result.isConfirmed) {
+                    this.loading=true;
+                    let formData = new FormData()
+                    formData.append('codigo',id)
+                    var request ={
+                        url:`${this.variableGlobal}/delete-arancel`,
+                        method:'post',
+                        data:formData
+                    }
+                        axios(request).then(({data}) => {
+                        if (data) {
+                            this.$swal.fire(
+                            'Anulado!',
+                            'El arancel fue anulado con éxito.',
+                            'success'
+                            )
+                        }
+                    });
+                    this.loading=false;
+                    this.getTotal();
                 }
-                
-                axios(request).then(({data}) => {
-                if (data) {
-                    this.$swal.fire(
-                    'Anulado!',
-                    'El grupo fue anulado con éxito.',
-                    'success'
-                    )
-                }
-            });
-            this.loading=false;
-            this.getTotal();
-            }
             })
-            
+
         },
-        ActiveDataUbigeos(id){
+        ActiveDataAranceles(id){
             this.$swal.fire({
-            title: '¿Estás seguro de activar este ubigeo?',
-            text: "¡Activarás este ubigeo!",
+            title: '¿Estás seguro de activar este arancel?',
+            text: "¡Activarás este arancel!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -265,16 +277,16 @@
                 let formData = new FormData()
                 formData.append('codigo',id)
                 var request ={
-                    url:`${this.variableGlobal}/active-ubigeo`,
+                    url:`${this.variableGlobal}/active-arancel`,
                     method:'post',
                     data:formData
                 }
-                
+
                 axios(request).then(({data}) => {
                 if (data) {
                     this.$swal.fire(
                     'Activado!',
-                    'El ubigeo fue activado con éxito.',
+                    'El arancel fue activado con éxito.',
                     'success'
                     )
                 }
@@ -284,10 +296,11 @@
             }
             })
         },
-        editDataUbigeos(id){
-            $('#modalProcesoEditUbigeos').modal({backdrop: 'static', keyboard: false});
-            $('#modalProcesoEditUbigeos').modal('show');
-            Bus.$emit("modalEditarUbigeos",id);
+
+        editDataAranceles(id){
+            $('#modalProcesoEditAranceles').modal({backdrop: 'static', keyboard: false});
+            $('#modalProcesoEditAranceles').modal('show');
+            Bus.$emit("modalEditarAranceles",id);
         },
         getAniosArancel(){
             axios.get(`${this.variableGlobal}/lista-aniosaranceles-text`).then(({data}) => {
@@ -298,14 +311,15 @@
         }
     },
     created(){
+        this.getTodasJuntas();
         this.getTotal();
         this.getAniosArancel();
-        Bus.$on("DetalleCreateAranceles", (data) => {
+        Bus.$on("DetalleUpdateAranceles", (data) => {
             this.getTotal();
         });
         Bus.$on("ProcesoEditUbigeo", (data) => {
             this.getTotal();
-        }); 
+        });
     }
 }
 </script>

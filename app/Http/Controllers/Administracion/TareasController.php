@@ -29,7 +29,7 @@ class TareasController extends Controller
     }
 
     public function storeDataTareas(Request $request){;
-        $tar_nombre = $request->tar_nombre; 
+        $tar_nombre = $request->tar_nombre;
         $tar_descripcion = $request->tar_descripcion;
         $tar_url = $request->tar_url;
         $tar_icono = $request->tar_icono;
@@ -53,7 +53,7 @@ class TareasController extends Controller
         }else{
             return response()->json(false);
         }
-        
+
     }
 
     public function deleteDataTareas(Request $request){
@@ -92,10 +92,10 @@ class TareasController extends Controller
 
     public function updateDataTareas(Request $request){
 
-        $tar_nombre = $request->tar_nombre; 
+        $tar_nombre = $request->tar_nombre;
         $tar_descripcion = $request->tar_descripcion;
         $tar_url = $request->tar_url;
-        
+
         $tar_orden = transformNull($request->tar_orden);
         $grupo_id = $request->grupo_id;
         $tarea_id = $request->tarea_id;
@@ -118,7 +118,7 @@ class TareasController extends Controller
         }else{
             return response()->json(false);
         }
-        
+
 
     }
 

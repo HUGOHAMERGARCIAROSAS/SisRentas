@@ -1,6 +1,6 @@
 <template>
     <div>
-         <page-loader v-if="loading==true"/> 
+         <page-loader v-if="loading==true"/>
          <div class="row clearfix">
                 <div class="col-lg-12">
                     <div class="card">
@@ -25,7 +25,7 @@
                             <div class="table-responsive" v-if="roles.length==0">
                                 <table class="table table-hover m-b-0 c_list">
                                     <thead>
-                                        <tr>        
+                                        <tr>
                                             <th class="text-center">#</th>
                                             <th class="text-center">Rol</th>
                                             <th class="text-center">Descripción</th>
@@ -41,7 +41,7 @@
                             <div class="table-responsive" v-else>
                                 <table class="table table-hover m-b-0 c_list">
                                     <thead>
-                                        <tr>                                 
+                                        <tr>
                                             <th class="text-center">#</th>
                                             <th class="text-center">Rol</th>
                                             <th class="text-center">Descripción</th>
@@ -63,9 +63,9 @@
                                                 <td class="text-center" >
                                                     <span class="badge badge-success" v-if="item.rol_activo==1">Activo</span>
                                                     <span class="badge badge-danger" v-if="item.rol_activo==0">Anulado</span>
-                                                </td>  
-                                                <td class="text-center">  
-                                                    <button type="button" v-if="$can('administracion.permisosrol.roles')"  class="btn btn-warning" @click="asignarPermisosRol(item.rol_id)" title="Asignar Tareas"><i class="fa fa-bars" aria-hidden="true"></i></button> 
+                                                </td>
+                                                <td class="text-center">
+                                                    <button type="button" v-if="$can('administracion.permisosrol.roles')"  class="btn btn-warning" @click="asignarPermisosRol(item.rol_id)" title="Asignar Tareas"><i class="fa fa-bars" aria-hidden="true"></i></button>
                                                     <button type="button" v-if="$can('administracion.roles.update')"  class="btn btn-info" @click="editDataRoles(item.rol_id)" title="Editar Rol"><i class="fa fa-edit"></i></button>
                                                     <span v-if="$can('administracion.roles.delete')"><button v-if="item.rol_activo==1" type="button" @click="deleteDataRoles(item.rol_id)" data-type="confirm" class="btn btn-danger js-sweetalert" title="Borrar Rol"><i class="fa fa-trash-o"></i></button></span>
                                                     <span v-if="$can('administracion.roles.active')"><button v-if="item.rol_activo==0" type="button" @click="ActiveDataRoles(item.rol_id)" data-type="confirm" class="btn btn-success js-sweetalert" title="ACtivar Rol"><i class="fa fa-check"></i></button></span>
@@ -92,7 +92,7 @@
         <!-- MODAL PARA EDITAR ROLES     -->
          <modal-editar-administracion-roles></modal-editar-administracion-roles>
 
-         
+
     </div>
 </template>
 <script>
@@ -149,7 +149,7 @@
             }else{
                 this.searchRoles();
             }
-            
+
         },
         searchRoles(){
             if(this.buscador.rol_nombre==''){
@@ -195,7 +195,7 @@
                     method:'post',
                     data:formData
                 }
-                
+
                 axios(request).then(({data}) => {
                 if (data) {
                     this.$swal.fire(
@@ -209,7 +209,7 @@
             this.getTotal();
             }
             })
-            
+
         },
         ActiveDataRoles(id){
             this.$swal.fire({
@@ -230,7 +230,7 @@
                     method:'post',
                     data:formData
                 }
-                
+
                 axios(request).then(({data}) => {
                 if (data) {
                     this.$swal.fire(
@@ -264,7 +264,7 @@
             this.getTotal();
         });
 
-            
+
     }
 }
 </script>

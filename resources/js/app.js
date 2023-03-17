@@ -36,11 +36,12 @@ import './routes/administracion/index';
 Vue.component('mantenedores-ubigeo-inicio', require('./components/mantenedores/ubigeo/HomeComponent.vue').default);
 Vue.component('modal-crear-mantenedores-ubigeo', require('./components/mantenedores/ubigeo/ModalCreateUbigeosComponent.vue').default);
 Vue.component('modal-editar-mantenedores-ubigeo', require('./components/mantenedores/ubigeo/ModalEditUbigeosComponent.vue').default);
+
 Vue.component('mantenedores-arancel-inicio', require('./components/mantenedores/aranceles/HomeComponent.vue').default);
 Vue.component('modal-crear-mantenedores-arancel', require('./components/mantenedores/aranceles/ModalCreateArancelesComponent.vue').default);
 Vue.component('modal-editar-mantenedores-arancel', require('./components/mantenedores/aranceles/ModalEditArancelesComponent.vue').default);
 
-
+Vue.component('mantenedores-fechas_vencimiento-inicio', require('./components/mantenedores/ubigeo/HomeComponent.vue').default);
 
 
 // TRAMITE DOCUMENTARIO

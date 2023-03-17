@@ -17,7 +17,7 @@
                                 <div class="col-md-4">
                                     <button type="button" @click="searchUbigeo()" class="btn mb-1 btn-simple btn-sm btn-secondary btn-filter" data-target="all"><i class="fa fa-search">  Buscar</i></button>
                                     <button type="button" @click="limpiar()" class="btn mb-1 btn-simple btn-sm btn-default btn-filter" data-target="approved"><i class="icon-refresh">  Limpiar</i></button>
-                                    <button  type="button" v-if="$can('administracion.grupos.store')" @click="AbriModalCrearUbigeo()" class="btn mb-1 btn-simple btn-sm btn-success btn-filter" data-target="blocked"><i class="fa fa-plus-square-o">  Nuevo</i></button>
+                                    <button  type="button" v-if="$can('mantenedores.ubigeos.store')" @click="AbriModalCrearUbigeo()" class="btn mb-1 btn-simple btn-sm btn-success btn-filter" data-target="blocked"><i class="fa fa-plus-square-o">  Nuevo</i></button>
                                 </div>
                             </div>
                         </div>
@@ -65,10 +65,9 @@
                                                     <span class="badge badge-danger" v-if="item.estado==0">Anulado</span>
                                                 </td>
                                                 <td class="text-center">
-                                                    <button v-if="$can('administracion.grupos.update')" type="button"  class="btn btn-info" @click="editDataUbigeos(item.ubicacion_id)" title="Editar Ubigeo"><i class="fa fa-edit"></i></button>
-                                                    <span  v-if="$can('administracion.grupos.delete')"><button v-if="item.estado==1" type="button" @click="deleteDataUbigeos(item.ubicacion_id)" data-type="confirm" class="btn btn-danger js-sweetalert" title="Borrar Ubigeo"><i class="fa fa-trash-o"></i></button></span>
-                                                    <span  v-if="$can('administracion.grupos.active')"><button v-if="item.estado==0" type="button" @click="ActiveDataUbigeos(item.ubicacion_id)" data-type="confirm" class="btn btn-success js-sweetalert" title="ACtivar Ubigeo"><i class="fa fa-check"></i></button></span>
-
+                                                    <button v-if="$can('mantenedores.ubigeos.update')" type="button"  class="btn btn-info" @click="editDataUbigeos(item.ubicacion_id)" title="Editar Ubigeo"><i class="fa fa-edit"></i></button>
+                                                    <span  v-if="$can('mantenedores.ubigeos.delete')"><button v-if="item.estado==1" type="button" @click="deleteDataUbigeos(item.ubicacion_id)" data-type="confirm" class="btn btn-danger js-sweetalert" title="Borrar Ubigeo"><i class="fa fa-trash-o"></i></button></span>
+                                                    <span  v-if="$can('mantenedores.ubigeos.active')"><button v-if="item.estado==0" type="button" @click="ActiveDataUbigeos(item.ubicacion_id)" data-type="confirm" class="btn btn-success js-sweetalert" title="ACtivar Ubigeo"><i class="fa fa-check"></i></button></span>
                                                 </td>
                                             </tr>
                                         </tbody>

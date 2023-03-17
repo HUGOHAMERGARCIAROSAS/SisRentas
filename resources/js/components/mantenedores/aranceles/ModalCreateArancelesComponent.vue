@@ -68,12 +68,12 @@
                             <div class="col-sm-5">
                             </div>
                             <div class="mb-3 col-12 col-md-4" style="margin-top:2%">
-                                <button type="submit" 
+                                <button type="submit"
                                     class="btn btn-primary btn-pill"><i class="fa fa-save nav-icon" aria-hidden="true" ></i>
                                     Grabar
                                 </button>
                                 <button type="button"
-                                    class="btn btn-danger btn-pill"  @click="closeModalAgregarAranceles()"
+                                    class="btn btn-danger btn-pill"  @click="closeModalAgregarArancelesOut()"
                                     ><i class="icon-close"></i>
                                     Cerrar
                                 </button>
@@ -84,7 +84,7 @@
             </div>
         </div>
     </div>
-    
+
 </template>
 
 
@@ -135,23 +135,15 @@
                         data:formData
                     }
                     axios(request).then(({data}) => {
-                    if (data) {
-                            this.$swal.fire({
-                                icon: 'success',
-                                title: 'GUARDADO!',
-                                text: "Se registro exitosamente",
-                                showConfirmButton: false,
-                                timer: 2500
-                            })
-                    }else{
-                        this.$swal.fire({
-                            icon: 'warning',
-                            title: '¡Error!',
-                            text: `Ya existe registro con este código.`,
-                            showConfirmButton: false,
-                            timer: 2500
-                        })
-                    }
+                        if (data) {
+                                this.$swal.fire({
+                                    icon: 'success',
+                                    title: 'GUARDADO!',
+                                    text: "Se registro exitosamente",
+                                    showConfirmButton: false,
+                                    timer: 2500
+                                })
+                        }
                     });
                     this.loading=false;
                     this.closeModalAgregarAranceles();
@@ -162,7 +154,10 @@
                 $('#modalCrearArancel').modal('hide');
                 Bus.$emit("DetalleCreateAranceles");
             },
-
+            closeModalAgregarArancelesOut(){
+                this.limpiarAranceles();
+                $('#modalCrearArancel').modal('hide');
+            },
             limpiarAranceles(){
                     this.arancel.anio='',
                     this.arancel.numero=''
