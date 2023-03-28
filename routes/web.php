@@ -51,15 +51,23 @@ Route::get('/home', 'HomeController@index')->name('home');
     Route::post('/update-data-aranceles', 'Mantenedores\ArancelesController@updateDataAranceles')->name('mantenedores.aranceles.update');
     Route::get('/datos-aranceles-edit/{id}', 'Mantenedores\ArancelesController@editDataAranceles')->name('mantenedores.aranceles.edit');
     Route::get('/lista-aniosaranceles-text', 'Mantenedores\ArancelesController@listAniosAranceles')->name('mantenedores.aranceles.listAnios');
-
+    Route::get('/lista-mantenedores-aranceles-total-juntas', 'Mantenedores\ArancelesController@listArancelesTotalJuntas')->name('mantenedores.aranceles.total_juntas');
 
     //FECHAS DE VENCIMIENTO
     Route::get('/mantenedores-fechas_vencimiento', 'Mantenedores\FechasVencimientoController@index')->name('mantenedores.fechas_vencimiento.index');
+    Route::get('/lista-fecha-vencimientos-text', 'Mantenedores\FechasVencimientoController@listFechaVencimientos')->name('mantenedores.fechas_vencimiento.list');
+    Route::post('/store-data-fecha-vencimientos', 'Mantenedores\FechasVencimientoController@storeDataFechaVencimientos')->name('mantenedores.fechas_vencimiento.store');
+    Route::get('/get-lista-fecha-vencimiento-anios-text', 'Mantenedores\FechasVencimientoController@getListAniosFechasVencimientos')->name('mantenedores.fechas_vencimiento.getListAnios');
+    Route::post('/lista-mantenedores-fecha-vencimientos-search', 'Mantenedores\FechasVencimientoController@listSearch')->name('mantenedores.fechas_vencimiento.search');
+    Route::get('/datos-fecha-vencimientos-edit/{id}', 'Mantenedores\FechasVencimientoController@editDataFechaVencimientos')->name('mantenedores.fechas_vencimiento.edit');
+    Route::post('/update-data-fecha-vencimientos', 'Mantenedores\FechasVencimientoController@updateDataFechaVencimientos')->name('mantenedores.fechas_vencimiento.update');
 
+    //CLASIFICADORES
+    Route::get('/mantenedores-clasificador-ingresos', 'Mantenedores\ClasificadorIngresosController@index')->name('mantenedores.clasificador_ingresos.index');
 
-
-
-    Route::get('/lista-mantenedores-aranceles-total-juntas', 'Mantenedores\ArancelesController@listArancelesTotalJuntas')->name('mantenedores.aranceles.total_juntas');
+    //COMBOS
+    Route::get('/lista-general-combos-meses', 'CombosController@meses')->name('general.combos.meses');
+    Route::get('/lista-general-combos-meses-todo', 'CombosController@mesesTodos')->name('general.combos.meses.todos');
 
 
 

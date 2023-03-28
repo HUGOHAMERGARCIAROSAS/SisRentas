@@ -41,14 +41,10 @@ Vue.component('mantenedores-arancel-inicio', require('./components/mantenedores/
 Vue.component('modal-crear-mantenedores-arancel', require('./components/mantenedores/aranceles/ModalCreateArancelesComponent.vue').default);
 Vue.component('modal-editar-mantenedores-arancel', require('./components/mantenedores/aranceles/ModalEditArancelesComponent.vue').default);
 
-Vue.component('mantenedores-fechas_vencimiento-inicio', require('./components/mantenedores/ubigeo/HomeComponent.vue').default);
+Vue.component('mantenedores-fechas_vencimiento-inicio', require('./components/mantenedores/fecha_vencimiento/HomeComponent.vue').default);
+Vue.component('modal-crear-mantenedores-fechas-vencimiento', require('./components/mantenedores/fecha_vencimiento/ModalCreateFechaVencimientosComponent.vue').default);
+Vue.component('modal-editar-mantenedores-fechas-vencimiento', require('./components/mantenedores/fecha_vencimiento/ModalEditFechaVencimientosComponent.vue').default);
 
-
-// TRAMITE DOCUMENTARIO
-// Vue.component('tramite-documentario-expedientes-inicio', require('./components/tramite_documentario/expedientes/HomeComponent.vue').default);
-// Vue.component('modal-editar-tramite-documentario-expediente', require('./components/tramite_documentario/expedientes/ModalEditExpedienteComponent.vue').default);
-// Vue.component('modal-adjuntar-archivo-tramite-documentario-expediente', require('./components/tramite_documentario/expedientes/ModalAdjuntarArchivoExpedienteComponent.vue').default);
-// Vue.component('mantenedores-caja-inicio', require('./components/mantenedores/caja/IndexCAjaComponent.vue').default);
 
 
 const app = new Vue({

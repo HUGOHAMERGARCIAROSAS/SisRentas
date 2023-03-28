@@ -22,5 +22,9 @@
 .modal-header {
     background: #49c5b6;
     color: white;
-    ;
+}
+
+thead{
+    background: #49c5b6!important;
+    color: white;
 }
