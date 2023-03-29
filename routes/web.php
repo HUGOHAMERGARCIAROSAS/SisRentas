@@ -64,10 +64,63 @@ Route::get('/home', 'HomeController@index')->name('home');
 
     //CLASIFICADORES
     Route::get('/mantenedores-clasificador-ingresos', 'Mantenedores\ClasificadorIngresosController@index')->name('mantenedores.clasificador_ingresos.index');
+    Route::get('/lista-aniosclasificadoringresos-text', 'Mantenedores\ClasificadorIngresosController@listAniosClasificadorIngresos')->name('mantenedores.clasificador_ingresos.listAnios');
+    Route::get('/lista-mantenedores-clasificador-ingresos-total-pages', 'Mantenedores\ClasificadorIngresosController@totalPages')->name('mantenedores.clasificador_ingresos.total_pages');
+    Route::get('/lista-mantenedores-clasificador-ingresos-list/{id}', 'Mantenedores\ClasificadorIngresosController@list')->name('mantenedores.clasificador_ingresos.list');
+    Route::post('/lista-mantenedores-clasificador-ingresos-search', 'Mantenedores\ClasificadorIngresosController@listSearch')->name('mantenedores.clasificador_ingresos.search');
+    Route::post('/delete-clasificador-ingresos', 'Mantenedores\ClasificadorIngresosController@deleteDataClasificadorIngresos')->name('mantenedores.clasificador_ingresos.delete');
+    Route::post('/active-clasificador-ingresos', 'Mantenedores\ClasificadorIngresosController@activeDataClasificadorIngresos')->name('mantenedores.clasificador_ingresos.active');
+    Route::post('/store-data-clasificador-ingresos', 'Mantenedores\ClasificadorIngresosController@storeDataClasificadorIngresos')->name('mantenedores.clasificador_ingresos.store');
+    Route::get('/datos-clasificador-ingresos-edit/{id}', 'Mantenedores\ClasificadorIngresosController@editDataClasificadorIngresos')->name('mantenedores.clasificador_ingresos.edit');
+    Route::post('/update-data-clasificador-ingresos', 'Mantenedores\ClasificadorIngresosController@updateDataClasificadorIngresos')->name('mantenedores.clasificador_ingresos.update');
+
+     //ARANCELES RUSTICOS
+     Route::get('/mantenedores-aranceles-rustico', 'Mantenedores\ArancelesRusticosController@index')->name('mantenedores.aranceles_rusticos.index');
+     Route::get('/lista-mantenedores-aranceles-rusticos-total-pages', 'Mantenedores\ArancelesRusticosController@totalPages')->name('mantenedores.aranceles_rusticos.total_pages');
+     Route::get('/lista-mantenedores-aranceles-rusticos-list/{id}', 'Mantenedores\ArancelesRusticosController@list')->name('mantenedores.aranceles_rusticos.list');
+     Route::post('/lista-mantenedores-aranceles-rusticos-search', 'Mantenedores\ArancelesRusticosController@listSearch')->name('mantenedores.aranceles_rusticos.search');
+     Route::post('/store-data-aranceles-rustico', 'Mantenedores\ArancelesRusticosController@storeDataArancelesRustico')->name('mantenedores.aranceles.store');
+     Route::post('/delete-arancel-rustico', 'Mantenedores\ArancelesRusticosController@deleteDataArancelesRusticos')->name('mantenedores.aranceles_rusticos.delete');
+     Route::post('/active-arancel-rustico', 'Mantenedores\ArancelesRusticosController@activeDataArancelesRusticos')->name('mantenedores.aranceles_rusticos.active');
+     Route::post('/update-data-aranceles-rustico', 'Mantenedores\ArancelesRusticosController@updateDataArancelesRusticos')->name('mantenedores.aranceles_rusticos.update');
+     Route::get('/datos-aranceles-rusticos-edit/{id}', 'Mantenedores\ArancelesRusticosController@editDataArancelesRusticos')->name('mantenedores.aranceles_rusticos.edit');
+     Route::get('/lista-aniosaranceles-rusticos-text', 'Mantenedores\ArancelesRusticosController@listAniosArancelesRusticos')->name('mantenedores.aranceles_rusticos.listAnios');
+
+
+       //TRIBUTOS
+       Route::get('/mantenedores-tributos', 'Mantenedores\TributosController@index')->name('mantenedores.tributos.index');
+    //    Route::get('/lista-mantenedores-aranceles-rusticos-total-pages', 'Mantenedores\ArancelesRusticosController@totalPages')->name('mantenedores.aranceles_rusticos.total_pages');
+    //    Route::get('/lista-mantenedores-aranceles-rusticos-list/{id}', 'Mantenedores\ArancelesRusticosController@list')->name('mantenedores.aranceles_rusticos.list');
+    //    Route::post('/lista-mantenedores-aranceles-rusticos-search', 'Mantenedores\ArancelesRusticosController@listSearch')->name('mantenedores.aranceles_rusticos.search');
+    //    Route::post('/store-data-aranceles-rustico', 'Mantenedores\ArancelesRusticosController@storeDataArancelesRustico')->name('mantenedores.aranceles.store');
+    //    Route::post('/delete-arancel-rustico', 'Mantenedores\ArancelesRusticosController@deleteDataArancelesRusticos')->name('mantenedores.aranceles_rusticos.delete');
+    //    Route::post('/active-arancel-rustico', 'Mantenedores\ArancelesRusticosController@activeDataArancelesRusticos')->name('mantenedores.aranceles_rusticos.active');
+    //    Route::post('/update-data-aranceles-rustico', 'Mantenedores\ArancelesRusticosController@updateDataArancelesRusticos')->name('mantenedores.aranceles_rusticos.update');
+    //    Route::get('/datos-aranceles-rusticos-edit/{id}', 'Mantenedores\ArancelesRusticosController@editDataArancelesRusticos')->name('mantenedores.aranceles_rusticos.edit');
+    //    Route::get('/lista-aniosaranceles-rusticos-text', 'Mantenedores\ArancelesRusticosController@listAniosArancelesRusticos')->name('mantenedores.aranceles_rusticos.listAnios');
+
+
+
+
+
+
+
+
+
+
 
     //COMBOS
-    Route::get('/lista-general-combos-meses', 'CombosController@meses')->name('general.combos.meses');
-    Route::get('/lista-general-combos-meses-todo', 'CombosController@mesesTodos')->name('general.combos.meses.todos');
+    Route::get('/lista-general-combos-meses', 'CombosController@meses')->name('general.combos.meses'); // SOLO MESES
+    Route::get('/lista-general-combos-meses-todo', 'CombosController@mesesTodos')->name('general.combos.meses.todos'); // MESES TODOS
+    Route::get('/lista-tipoclasificacion-arancelrustico-text', '@clasificacionArancelRustico')->name('general.combos.clasificacion.arancel_rustico'); // CLASIFICACION DE ARANCELES RUSTICOS
+    Route::get('/lista-tipocategoria-arancelrustico-text', 'CombosController@categoriaArancelRustico')->name('general.combos.categoria.arancel_rustico'); // CATEGORIA DE ARANCELES RUSTICOS
+
+    Route::get('/lista-tributos-grupos-text', 'CombosController@listGrupoTributos')->name('general.combos.tributos.grupo');
+    Route::get('/lista-tributos-genericos-text', 'CombosController@lisGenericoTributos')->name('general.combos.tributos.generico');
+    Route::get('/lista-tributos-subgenericos-text', 'CombosController@listSubgenericosTributos')->name('general.combos.tributos.subgenerico');
+    Route::get('/lista-tributos-especifica-text', 'CombosController@listEspecificaTributos')->name('general.combos.tributos.especifica');
+    Route::get('/lista-tributos-area-text', 'CombosController@listAreaTributos')->name('general.combos.tributos.area');
+
 
 
 
