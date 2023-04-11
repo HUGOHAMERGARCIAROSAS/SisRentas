@@ -87,26 +87,29 @@ Route::get('/home', 'HomeController@index')->name('home');
      Route::get('/lista-aniosaranceles-rusticos-text', 'Mantenedores\ArancelesRusticosController@listAniosArancelesRusticos')->name('mantenedores.aranceles_rusticos.listAnios');
 
 
-       //TRIBUTOS
-       Route::get('/mantenedores-tributos', 'Mantenedores\TributosController@index')->name('mantenedores.tributos.index');
-    //    Route::get('/lista-mantenedores-aranceles-rusticos-total-pages', 'Mantenedores\ArancelesRusticosController@totalPages')->name('mantenedores.aranceles_rusticos.total_pages');
-    //    Route::get('/lista-mantenedores-aranceles-rusticos-list/{id}', 'Mantenedores\ArancelesRusticosController@list')->name('mantenedores.aranceles_rusticos.list');
-    //    Route::post('/lista-mantenedores-aranceles-rusticos-search', 'Mantenedores\ArancelesRusticosController@listSearch')->name('mantenedores.aranceles_rusticos.search');
-    //    Route::post('/store-data-aranceles-rustico', 'Mantenedores\ArancelesRusticosController@storeDataArancelesRustico')->name('mantenedores.aranceles.store');
-    //    Route::post('/delete-arancel-rustico', 'Mantenedores\ArancelesRusticosController@deleteDataArancelesRusticos')->name('mantenedores.aranceles_rusticos.delete');
-    //    Route::post('/active-arancel-rustico', 'Mantenedores\ArancelesRusticosController@activeDataArancelesRusticos')->name('mantenedores.aranceles_rusticos.active');
-    //    Route::post('/update-data-aranceles-rustico', 'Mantenedores\ArancelesRusticosController@updateDataArancelesRusticos')->name('mantenedores.aranceles_rusticos.update');
-    //    Route::get('/datos-aranceles-rusticos-edit/{id}', 'Mantenedores\ArancelesRusticosController@editDataArancelesRusticos')->name('mantenedores.aranceles_rusticos.edit');
-    //    Route::get('/lista-aniosaranceles-rusticos-text', 'Mantenedores\ArancelesRusticosController@listAniosArancelesRusticos')->name('mantenedores.aranceles_rusticos.listAnios');
+    //TRIBUTOS
+    Route::get('/mantenedores-tributos', 'Mantenedores\TributosController@index')->name('mantenedores.tributos.index');
+    Route::get('/lista-mantenedores-tributos-total-pages', 'Mantenedores\TributosController@totalPages')->name('mantenedores.tributos.total_pages');
+    Route::get('/lista-mantenedores-tributos-list/{id}', 'Mantenedores\TributosController@list')->name('mantenedores.tributos.list');
+    Route::post('/lista-mantenedores-tributos-search', 'Mantenedores\TributosController@listSearch')->name('mantenedores.tributos.search');
+    Route::post('/store-data-tributos', 'Mantenedores\TributosController@storeDataTributos')->name('mantenedores.tributos.store');
+    Route::post('/delete-tributos', 'Mantenedores\TributosController@deleteDataTributos')->name('mantenedores.tributos.delete');
+    Route::post('/active-tributos', 'Mantenedores\TributosController@activeDataTributos')->name('mantenedores.tributos.active');
+    Route::post('/update-data-tributos', 'Mantenedores\TributosController@updateDataTributos')->name('mantenedores.tributos.update');
+    Route::get('/datos-tributos-edit/{id}', 'Mantenedores\TributosController@editDataTributos')->name('mantenedores.tributos.edit');
 
+    //IPM REAJUSTE
+    Route::get('/mantenedores-ipm-reajuste', 'Mantenedores\IpmReajusteController@index')->name('mantenedores.ipm_reajuste.index');
+    Route::get('/lista-mantenedores-ipm-reajuste-total-pages', 'Mantenedores\IpmReajusteController@totalPages')->name('mantenedores.ipm_reajuste.total_pages');
+    Route::get('/lista-mantenedores-ipm-reajuste-list/{id}', 'Mantenedores\IpmReajusteController@list')->name('mantenedores.ipm_reajuste.list');
+    Route::post('/lista-mantenedores-ipm-reajuste-search', 'Mantenedores\IpmReajusteController@listSearch')->name('mantenedores.ipm_reajuste.search');
+    Route::post('/store-data-ipm-reajuste', 'Mantenedores\IpmReajusteController@storeDataIpmReajuste')->name('mantenedores.ipm_reajuste.store');
+    Route::post('/delete-ipm-reajuste', 'Mantenedores\IpmReajusteController@deleteDataIpmReajuste')->name('mantenedores.ipm_reajuste.delete');
+    Route::post('/active-ipm-reajuste', 'Mantenedores\IpmReajusteController@activeDataIpmReajuste')->name('mantenedores.ipm_reajuste.active');
+    Route::post('/update-data-ipm-reajuste', 'Mantenedores\IpmReajusteController@updateDataIpmReajuste')->name('mantenedores.ipm_reajuste.update');
+    Route::get('/datos-ipm-reajuste-edit/{id}', 'Mantenedores\IpmReajusteController@editDataIpmReajuste')->name('mantenedores.ipm_reajuste.edit');
 
-
-
-
-
-
-
-
+    Route::get('/lista-anios-ipm-reajuste-text', 'Mantenedores\IpmReajusteController@listAniosIpmReajuste')->name('mantenedores.ipm_reajuste.listAnios');
 
 
     //COMBOS
@@ -115,11 +118,15 @@ Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/lista-tipoclasificacion-arancelrustico-text', '@clasificacionArancelRustico')->name('general.combos.clasificacion.arancel_rustico'); // CLASIFICACION DE ARANCELES RUSTICOS
     Route::get('/lista-tipocategoria-arancelrustico-text', 'CombosController@categoriaArancelRustico')->name('general.combos.categoria.arancel_rustico'); // CATEGORIA DE ARANCELES RUSTICOS
 
+
     Route::get('/lista-tributos-grupos-text', 'CombosController@listGrupoTributos')->name('general.combos.tributos.grupo');
     Route::get('/lista-tributos-genericos-text', 'CombosController@lisGenericoTributos')->name('general.combos.tributos.generico');
-    Route::get('/lista-tributos-subgenericos-text', 'CombosController@listSubgenericosTributos')->name('general.combos.tributos.subgenerico');
-    Route::get('/lista-tributos-especifica-text', 'CombosController@listEspecificaTributos')->name('general.combos.tributos.especifica');
+    Route::get('/lista-tributos-subgenericos-text/{id}', 'CombosController@listSubgenericosTributos')->name('general.combos.tributos.subgenerico');
+    Route::get('/lista-tributos-especifica-text/{id}', 'CombosController@listEspecificaTributos')->name('general.combos.tributos.especifica');
     Route::get('/lista-tributos-area-text', 'CombosController@listAreaTributos')->name('general.combos.tributos.area');
+
+    Route::get('/lista-tributos-fuentes-text', 'CombosController@listFuentesTributos')->name('general.combos.tributos.fuentes');
+
 
 
 

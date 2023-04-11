@@ -67,6 +67,13 @@ Vue.component('mantenedores-tributos-inicio', require('./components/mantenedores
 Vue.component('modal-crear-mantenedores-tributos', require('./components/mantenedores/tributos/ModalCreateTributosComponent.vue').default);
 Vue.component('modal-editar-mantenedores-tributos', require('./components/mantenedores/tributos/ModalEditTributosComponent.vue').default);
 
+//IPM REAJUSTE
+Vue.component('mantenedores-ipm-reajuste-inicio', require('./components/mantenedores/ipm_reajuste/HomeComponent.vue').default);
+Vue.component('modal-crear-mantenedores-ipm-reajuste', require('./components/mantenedores/ipm_reajuste/ModalCreateIpmReajusteComponent.vue').default);
+Vue.component('modal-editar-mantenedores-ipm-reajuste', require('./components/mantenedores/ipm_reajuste/ModalEditIpmReajusteComponent.vue').default);
+
+
+
 
 
 const app = new Vue({

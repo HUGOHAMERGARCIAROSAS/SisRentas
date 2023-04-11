@@ -16,59 +16,48 @@ class TributosController extends Controller
     }
 
     public function totalPages(){
-        $aranceles =  DB::select('exec sp_arancelr ?', array(2));
-        return response()->json($aranceles);
+        $tributos =  DB::select('exec sp_tributo ?,?,?,?,?,?,?,?,?,?,?', array("","",null,"","","","","","","",2));
+        return response()->json($tributos);
     }
 
     public function list($id){
         $pag = $id;
         $hasta=10;
         $desde = ($hasta*$pag)-$hasta;
-        $aranceles =  DB::select('exec sp_arancelr ?,?,?', array(1,$hasta,$desde));
-        return response()->json($aranceles);
+        $tributos =  DB::select('exec sp_tributo ?,?,?,?,?,?,?,?,?,?,?', array("","",null,"","","","","",$desde,$hasta,1));
+        return response()->json($tributos);
     }
 
     public function listSearch(Request $request){
-        $anio = $request->anio;
         $descripcion = $request->descripcion;
-        $listEstado =  DB::select('exec sp_arancelr ?,?,?,?,?,?,?,?,?,?,?,?', array(13,'','','',$anio,null,'','','','','',$descripcion));
+        $grupo = $request->grupo;
+        $generica = $request->generica;
+        $subgenerica = $request->subgenerica;
+        $especifica = $request->especifica;
+        $area = $request->area;
+
+        $listEstado =  DB::select('exec sp_tributo ?,?,?,?,?,?,?,?,?,?,?,?', array("",$descripcion,null,"","",$grupo,$especifica,"","","",16,$area));
         return response()->json($listEstado);
     }
 
-    public function storeDataArancelesRustico(Request $request){
+    public function storeDataTributos(Request $request){
 
         $user = Auth::user()->per_login;
-        $anio = $request->anio;
-        $clasificacion = $request->clasificacion;
+        $codigo = $request->codigo;
+        $abrev = $request->abrev;
         $importe = $request->importe;
-        $categoria = $request->categoria;
-        try {
-            DB::beginTransaction();
-            DB::statement('exec sp_arancelr ?,?,?,?,?,?,?,?',
-            array(7,"","","",$anio,$importe,$categoria,$clasificacion));
-            DB::commit();
-            return response()->json(true);
-        }
-        catch (\Exception $e) {
-            DB::rollBack();
-            return response()->json(false);
-        }
-
-    }
-
-    public function updateDataArancelesRusticos(Request $request){
-
-        $user = Auth::user()->per_login;
-        $anio = $request->anio;
-        $importe = $request->importe;
-        $categoria = $request->categoria;
-        $clasificacion = $request->clasificacion;
-        $arancelr_id = $request->arancelr_id;
+        $descripcion = $request->descripcion;
+        $codigocontable = $request->codigocontable;
+        $area = $request->area;
+        $fuente = $request->fuente;
+        $area_porc = $request->area_porc;
+        $grupo = $request->grupo;
+        $especifica = $request->especifica;
 
         try {
             DB::beginTransaction();
-            DB::statement('exec sp_arancelr ?,?,?,?,?,?,?,?',
-            array(11,"","",$arancelr_id,$anio,$importe,$categoria,$clasificacion));
+            DB::statement('exec sp_tributo ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?',
+            array("",$descripcion,$importe,1,$abrev,$grupo,$especifica ,$codigocontable,"",$fuente,7,$area,$area_porc,null,$codigo,$user));
             DB::commit();
             return response()->json(true);
         }
@@ -79,17 +68,45 @@ class TributosController extends Controller
 
     }
 
-    public function listAniosArancelesRusticos(){
-        $arancelesr =  DB::select('exec sp_arancelr ?', array(12));
-        return response()->json($arancelesr);
+    public function updateDataTributos(Request $request){
+
+        $user = Auth::user()->per_login;
+        $codigo = $request->codigo;
+        $abrev = $request->abrev;
+        $importe = $request->importe;
+        $descripcion = $request->descripcion;
+        $codigocontable = $request->codigocontable;
+        $area = $request->area;
+        $fuente = $request->fuente;
+        $area_porc = $request->area_porc;
+        $grupo = $request->grupo;
+        $especifica = $request->especifica;
+        // $tributos_id = $request->tributos_id;
+
+        try {
+            DB::beginTransaction();
+            DB::statement('exec sp_tributo ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?',
+            array($codigo,$descripcion,$importe,1,$abrev,$grupo,$especifica ,$codigocontable,"",$fuente,8,$area,$area_porc,null,"",$user));
+            DB::commit();
+            return response()->json(true);
+        }
+        catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(false);
+        }
+
     }
 
+    public function editDataTributos($id){
+        $id =  DB::select('exec sp_tributo ?,?,?,?,?,?,?,?,?,?,?', array($id,"",null,"","","","","","","",10));
+        return response()->json($id);
+    }
 
-    public function deleteDataArancelesRusticos(Request $request){
+    public function activeDataTributos(Request $request){
         try {
             $codigo = $request->codigo;
-            DB::statement('exec sp_arancelr ?,?,?,?,?',
-            array(9,"","",$codigo,""));
+            DB::statement('exec sp_tributo ?,?,?,?,?,?,?,?,?,?,?,',
+            array($codigo,"",null,"","","","","","","",16));
             DB::commit();
             return response()->json(true);
         }
@@ -99,17 +116,11 @@ class TributosController extends Controller
         }
     }
 
-    public function editDataArancelesRusticos($id){
-        $aranceles =  DB::select('exec sp_arancelr ?,?,?,?', array(8,"","",$id));
-        return response()->json($aranceles);
-    }
-
-    public function activeDataArancelesRusticos(Request $request){
+    public function deleteDataTributos(Request $request){
         try {
             $codigo = $request->codigo;
-
-            DB::statement('exec sp_arancelr ?,?,?,?,?',
-            array(14,"","",$codigo,""));
+            DB::statement('exec sp_tributo ?,?,?,?,?,?,?,?,?,?,?',
+            array($codigo,"",null,"","","","","","","",9));
             DB::commit();
             return response()->json(true);
         }

@@ -44,7 +44,7 @@ class RolesController extends Controller
     }
 
     public function storeDataRoles(Request $request){;
-        $rol_nombre = trim($request->rol_nombre); 
+        $rol_nombre = trim($request->rol_nombre);
         $rol_descripcion = $request->rol_descripcion;
 
         $result =  DB::select('exec sp_roles ?,?,?,?,?,?,?', array("",$rol_nombre,"","","","",14));
@@ -63,7 +63,7 @@ class RolesController extends Controller
         }else{
             return response()->json(false);
         }
-        
+
     }
 
     public function deleteDataRoles(Request $request){
@@ -101,21 +101,21 @@ class RolesController extends Controller
     }
 
     public function pruebaPrueba(){
-        $usuario = Grupo::whereHas('orderTareas', function($q) { 
-            $q->where('gru_activo','=','1'); 
-        })->with(['orderTareas' => function($q) { 
-            $q->where('tar_activo','=','1'); 
+        $usuario = Grupo::whereHas('orderTareas', function($q) {
+            $q->where('gru_activo','=','1');
+        })->with(['orderTareas' => function($q) {
+            $q->where('tar_activo','=','1');
         }])->get();
 
         return response()->json($usuario);
     }
 
     public function updateDataRoles(Request $request){
-        
+
         $rol_id = $request->rol_id;
         $rol_nombre = trim($request->rol_nombre);
         $rol_descripcion = $request->rol_descripcion;
-        
+
         $result =  DB::select('exec sp_roles ?,?,?,?,?,?,?', array($rol_id,$rol_nombre,"","","","",15));
         if($result[0]->total==0){
             try {
@@ -132,7 +132,7 @@ class RolesController extends Controller
         }else{
             return response()->json(false);
         }
-        
+
 
     }
 
@@ -171,7 +171,7 @@ class RolesController extends Controller
             return response()->json(false);
         }
     }
-    
+
 
     public function listSearch(Request $request){
         $rol_nombre = $request->rol_nombre;
@@ -179,10 +179,10 @@ class RolesController extends Controller
         return response()->json($listEstado);
     }
     public function getGruposPermisosByGrupos(){
-        $usuario = Grupo::whereHas('orderTareas', function($q) { 
-            $q->where('gru_activo','=','1'); 
-        })->with(['orderTareas' => function($q) { 
-            $q->where('tar_activo','=','1'); 
+        $usuario = Grupo::whereHas('orderTareas', function($q) {
+            $q->where('gru_activo','=','1');
+        })->with(['orderTareas' => function($q) {
+            $q->where('tar_activo','=','1');
         }])->get();
 
         return response()->json($usuario);
@@ -225,7 +225,7 @@ class RolesController extends Controller
             array($id,"","","","","",19));
             DB::commit();
 
-                for ($i=0; $i < count($request->permission); $i++) { 
+                for ($i=0; $i < count($request->permission); $i++) {
                     DB::beginTransaction();
                     DB::statement('exec sp_roles ?,?,?,?,?,?,?',
                     array($id,"","","","",$request->permission[$i],18));
@@ -236,13 +236,13 @@ class RolesController extends Controller
             catch (\Exception $e) {
                 return redirect()->back()->with('error','Seleccione un permiso para este rol.');
             }
-         
+
     }
 }
 
 
 
 
-    
+
 
 

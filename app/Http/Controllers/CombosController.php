@@ -35,32 +35,39 @@ class CombosController extends Controller
 
      //TIPO TRIBUTOS
      public function listGrupoTributos(){
-        $categoriaarancelesrusticos =  DB::select('exec sp_combos ?', array(5));
-        return response()->json($categoriaarancelesrusticos);
+        $grupotributos =  DB::select('exec sp_combos ?', array(5));
+        return response()->json($grupotributos);
     }
 
      //GENERICA - TRIBUTOS
      public function lisGenericoTributos(){
-        $categoriaarancelesrusticos =  DB::select('exec sp_combos ?', array(6));
-        return response()->json($categoriaarancelesrusticos);
+        $genericotributos =  DB::select('exec sp_combos ?', array(6));
+        return response()->json($genericotributos);
     }
 
      //SUB GENERICA - TRIBUTOS
      public function listSubgenericosTributos($id){
-        $categoriaarancelesrusticos =  DB::select('exec sp_combos ?,?', array(7,$id));
-        return response()->json($categoriaarancelesrusticos);
+        $subgenericostributos =  DB::select('exec sp_combos ?,?', array(7,$id));
+        return response()->json($subgenericostributos);
     }
 
      //ESPECIFICAS
      public function listEspecificaTributos($id){
-        $categoriaarancelesrusticos =  DB::select('exec sp_combos ?,?', array(8,$id));
-        return response()->json($categoriaarancelesrusticos);
+        $especificatributos =  DB::select('exec sp_combos ?,?', array(8,$id));
+        return response()->json($especificatributos);
     }
 
      //AREAS
      public function listAreaTributos(){
-        $categoriaarancelesrusticos =  DB::select('exec sp_combos ?', array(9));
-        return response()->json($categoriaarancelesrusticos);
+        $areatributos =  DB::select('exec sp_combos ?', array(9));
+        return response()->json($areatributos);
+    }
+
+    // FUENTES DE FINANCIAMIENTO
+
+    public function listFuentesTributos(){
+        $fuentesfinanciamiento =  DB::select('exec sp_combos ?', array(10));
+        return response()->json($fuentesfinanciamiento);
     }
 
 }
