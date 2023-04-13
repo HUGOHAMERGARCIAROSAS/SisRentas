@@ -108,8 +108,36 @@ Route::get('/home', 'HomeController@index')->name('home');
     Route::post('/active-ipm-reajuste', 'Mantenedores\IpmReajusteController@activeDataIpmReajuste')->name('mantenedores.ipm_reajuste.active');
     Route::post('/update-data-ipm-reajuste', 'Mantenedores\IpmReajusteController@updateDataIpmReajuste')->name('mantenedores.ipm_reajuste.update');
     Route::get('/datos-ipm-reajuste-edit/{id}', 'Mantenedores\IpmReajusteController@editDataIpmReajuste')->name('mantenedores.ipm_reajuste.edit');
-
     Route::get('/lista-anios-ipm-reajuste-text', 'Mantenedores\IpmReajusteController@listAniosIpmReajuste')->name('mantenedores.ipm_reajuste.listAnios');
+
+    //IPM ALCABALA
+    Route::get('/mantenedores-ipm-alcabala', 'Mantenedores\IpmAlcabalaController@index')->name('mantenedores.ipm_alcabala.index');
+    Route::get('/lista-mantenedores-ipm-alcabala-total-pages', 'Mantenedores\IpmAlcabalaController@totalPages')->name('mantenedores.ipm_alcabala.total_pages');
+    Route::get('/lista-mantenedores-ipm-alcabala-list/{id}', 'Mantenedores\IpmAlcabalaController@list')->name('mantenedores.ipm_alcabala.list');
+    Route::post('/lista-mantenedores-ipm-alcabala-search', 'Mantenedores\IpmAlcabalaController@listSearch')->name('mantenedores.ipm_alcabala.search');
+    Route::post('/store-data-ipm-alcabala', 'Mantenedores\IpmAlcabalaController@storeDataIpmAlcabala')->name('mantenedores.ipm_alcabala.store');
+    Route::post('/delete-ipm-alcabala', 'Mantenedores\IpmAlcabalaController@deleteDataIpmAlcabala')->name('mantenedores.ipm_alcabala.delete');
+    Route::post('/active-ipm-alcabala', 'Mantenedores\IpmAlcabalaController@activeDataIpmAlcabala')->name('mantenedores.ipm_alcabala.active');
+    Route::post('/update-data-ipm-alcabala', 'Mantenedores\IpmAlcabalaController@updateDataIpmAlcabala')->name('mantenedores.ipm_alcabala.update');
+    Route::get('/datos-ipm-alcabala-edit/{id}', 'Mantenedores\IpmAlcabalaController@editDataIpmAlcabala')->name('mantenedores.ipm_alcabala.edit');
+    Route::get('/lista-anios-ipm-alcabala-text', 'Mantenedores\IpmAlcabalaController@listAniosIpmAlcabala')->name('mantenedores.ipm_alcabala.listAnios');
+
+
+    //PARAMETROS
+    Route::get('/mantenedores-parametros', 'Mantenedores\ParametrosController@index')->name('mantenedores.parametros.index');
+    Route::get('/lista-mantenedores-parametros-total-pages', 'Mantenedores\ParametrosController@totalPages')->name('mantenedores.parametros.total_pages');
+    Route::get('/lista-mantenedores-parametros-list/{id}', 'Mantenedores\ParametrosController@list')->name('mantenedores.parametros.list');
+    Route::post('/lista-mantenedores-parametros-search', 'Mantenedores\ParametrosController@listSearch')->name('mantenedores.parametros.search');
+    Route::post('/lista-mantenedores-parametros-search-total', 'Mantenedores\ParametrosController@listSearchTotal')->name('mantenedores.parametros.searchTotal');
+
+    Route::post('/store-data-parametros', 'Mantenedores\ParametrosController@storeDataParametros')->name('mantenedores.parametros.store');
+    Route::post('/delete-parametros', 'Mantenedores\ParametrosController@deleteDataParametros')->name('mantenedores.parametros.delete');
+    Route::post('/active-parametros', 'Mantenedores\ParametrosController@activeDataParametros')->name('mantenedores.parametros.active');
+    Route::post('/update-data-parametros', 'Mantenedores\ParametrosController@updateDataParametros')->name('mantenedores.parametros.update');
+    Route::get('/datos-parametros-edit/{id}', 'Mantenedores\ParametrosController@editDataParametros')->name('mantenedores.parametros.edit');
+    Route::get('/lista-anios-parametros-text', 'Mantenedores\ParametrosController@listAniosParametros')->name('mantenedores.parametros.listAnios');
+
+
 
 
     //COMBOS

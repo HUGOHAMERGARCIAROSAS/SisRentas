@@ -72,6 +72,16 @@ Vue.component('mantenedores-ipm-reajuste-inicio', require('./components/mantened
 Vue.component('modal-crear-mantenedores-ipm-reajuste', require('./components/mantenedores/ipm_reajuste/ModalCreateIpmReajusteComponent.vue').default);
 Vue.component('modal-editar-mantenedores-ipm-reajuste', require('./components/mantenedores/ipm_reajuste/ModalEditIpmReajusteComponent.vue').default);
 
+//IPM ALCABALA
+Vue.component('mantenedores-ipm-alcabala-inicio', require('./components/mantenedores/ipm_alcabala/HomeComponent.vue').default);
+Vue.component('modal-crear-mantenedores-ipm-alcabala', require('./components/mantenedores/ipm_alcabala/ModalCreateIpmAlcabalaComponent.vue').default);
+Vue.component('modal-editar-mantenedores-ipm-alcabala', require('./components/mantenedores/ipm_alcabala/ModalEditIpmAlcabalaComponent.vue').default);
+
+
+//PARAMETROS
+Vue.component('mantenedores-parametros-inicio', require('./components/mantenedores/parametros/HomeComponent.vue').default);
+Vue.component('modal-crear-mantenedores-parametros', require('./components/mantenedores/parametros/ModalCreateParametrosComponent.vue').default);
+Vue.component('modal-editar-mantenedores-parametros', require('./components/mantenedores/parametros/ModalEditParametrosComponent.vue').default);
 
 
 

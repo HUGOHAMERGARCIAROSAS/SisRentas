@@ -2,7 +2,7 @@
 
   <ul class="pagination justify-content-center">
     <li class="page-item">
-      <button 
+      <button
         type="button"  class="page-linkk"
         @click="onClickFirstPage"
         :disabled="isInFirstPage"
@@ -12,7 +12,7 @@
       </button>
     </li>
     <li class="page-item"><button  class="page-linkk"
-        type="button" 
+        type="button"
         @click="onClickPreviousPage"
         :disabled="isInFirstPage"
         aria-label="Ir a la pagina anterior."
@@ -20,17 +20,17 @@
         Anterior
       </button></li>
 
-    <li class="page-item" v-for="(page,index) in pages"  :key="index"><button 
+    <li class="page-item" v-for="(page,index) in pages"  :key="index"><button
         type="button"  class="page-linkk"
         @click="onClickPage(page.name)"
         :disabled="page.isDisabled"
         :class="{ activar: isPageActive(page.name) }"
-        :aria-label="`Ir a l apagina número ${page.name}`"
-        
+        :aria-label="`Ir a l página número ${page.name}`"
+
       >
         {{ page.name }}
       </button></li>
-    <li class="page-item"><button 
+    <li class="page-item"><button
         type="button"  class="page-linkk"
         @click="onClickNextPage"
         :disabled="isInLastPage"
@@ -39,7 +39,7 @@
         Siguiente
       </button></li>
     <li class="page-item">
-      <button 
+      <button
         type="button"  class="page-linkk"
         @click="onClickLastPage"
         :disabled="isInLastPage"
@@ -56,7 +56,7 @@
 
 <script>
 export default {
-    
+
     props: {
     maxVisibleButtons: {
       type: Number,
@@ -100,9 +100,9 @@ export default {
 
     },
     endPage() {
-      
+
       return Math.min(this.startPage + this.maxVisibleButtons - 1, this.totalPages);
-      
+
     },
     pages() {
       const range = [];
@@ -110,7 +110,7 @@ export default {
       for (let i = this.startPage; i <= this.endPage; i+= 1 ) {
         range.push({
           name: i,
-          isDisabled: i === this.currentPage 
+          isDisabled: i === this.currentPage
         });
       }
 
@@ -137,7 +137,7 @@ export default {
       this.$emit('pagechanged', this.currentPage + 1);
     },
     onClickLastPage() {
-      this.$emit('pagechanged', this.totalPages);    
+      this.$emit('pagechanged', this.totalPages);
     },
     isPageActive(page) {
       return this.currentPage === page;
